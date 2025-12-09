@@ -1,0 +1,175 @@
+{% extends "census/base.html" %}
+
+{% block content %}
+<!-- TODO: rename class "test" and move css at the end of bootstrap.css -->
+<div class="p-5 text-center bg-body-tertiary home-page-bg">
+	<div class="container py-5">
+		<div style="padding: 15px; background-color: rgba(255,255,255,0.9); border-radius: 10px;">
+			<!-- TODO: ou "Observatoire du maraîchage diversifié sur petites et moyennes surfaces" ? -->
+			<h1 class="display-4">Plateforme de recensement des fermes maraîchères <strong>diversifiées</strong></h1>
+			<p class="lead">Déjà <b>{{ farm_count }}</b> fermes recensées, dans <b>{{ municipality_count }}</b> communes.</p>
+			<hr class="my-4">
+			<p class="lead">
+				<a class="btn btn-primary btn-lg mt-1" href="{% url 'census:listing' %}" role="button">Voir la liste</a>
+				<a class="btn btn-success btn-lg mt-1" href="#faq" role="button">Plus d'informations ↓</a>
+			</p>
+		</div>
+	</div>
+</div>
+
+<div class="container mt-4 text-center">
+	<h2>Aidez-nous et contribuez au recensement !</h2>
+
+  <div class="row gx-5 mt-4">
+    <div class="col">
+	    <h4>Maraîcher·ères</h4>
+	    <p>
+		    <!-- TODO: make nice list to improve readability ? -->
+		    Il y a plein de façon de contribuer au recensement !
+		    <span class="badge rounded-pill text-bg-primary">1</span> Parcourez <a href="{% url 'census:listing' %}">la liste</a> des
+		    fermes maraîchères diversifiées et, si vous n'y êtes pas, <a href="{% url 'census:create' %}">ajoutez la vôtre</a>&nbsp;!
+		    <span class="badge rounded-pill text-bg-primary">2</span> Si votre ferme est déjà reprise dans <a href="{% url 'census:listing' %}">la liste</a>,
+		    modifiez-la pour compléter d'autres informations pertinentes pour le recensement (surface cultivée, année d'installation, etc.)
+		    <span class="badge rounded-pill text-bg-primary">3</span> Parlez-en à vos collègues  maraîcher·ères ou ajoutez vous-mêmes leur ferme sur la plateforme.
+			</p>
+	    <p class="lead">
+				<a class="btn btn-success" href="{% url 'census:listing' %}" role="button">Voir la liste</a>
+			</p>
+    </div>
+    <div class="col">
+	    <h4>Citoyen·nes</h4>
+	    <p>
+				Si vos maraîcher·ères préféré·es ne se trouvent pas dans la <a href="{% url 'census:listing' %}">la liste</a>,
+		    <a href="mailto:antoine.paris@uclouvain.be">contactez-nous</a> en précisant le nom de la ferme, la commune dans
+		    laquelle elle se situe et toute autre information à votre disposition (site web, page Facebook, etc.).
+			</p>
+	    <p class="lead">
+				<a class="btn btn-success" href="{% url 'census:listing' %}" role="button">Voir la liste</a>
+			</p>
+    </div>
+  </div>
+</div>
+
+<hr class="my-5">
+
+<div class="container mt-5">
+	<h2 class="text-center mb-4" id="faq">Foire aux questions</h2>
+
+	<div class="accordion" id="FAQ">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                aria-expanded="false" aria-controls="collapseOne">
+          Pourquoi faire un recensement des maraîcher·ères diversifié·es ?
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
+        <div class="accordion-body">
+	        <p>
+		        Parce que aujourd'hui, personne ne sait vraiment combien de maraîcher·ères diversifié·es produisent des
+		        légumes en Wallonie. <b>Il n'existe pas de recensement exhaustif</b>. On ne sait donc pas non plus vraiment
+		        quelle surface est cultivée par les maraîcher·ères diversifié·es, combien d'équivalents temps plein travaillent
+		        dans le secteur, combien de maraîcher·ères s'installent chaque année ou, malheureusement, combien cessent
+		        leur activité.
+	        </p>
+	        <p>
+						Collecter ces informations de base sur le secteur du maraîchage diversifié nous semble pertinent pour
+		        plusieurs raisons&nbsp;:
+		        <ul>
+              <li>favoriser les collaborations entre maraîcher·ères à l'échelle territoriale en cartographiant
+	              les producteurs&nbsp;;</li>
+	            <li>servir de support à la recherche scientifique sur le maraîchage diversifié à l'UCLouvain&nbsp;;</li>
+	            <li>étudier l'évolution du secteur dans le temps&nbsp;;</li>
+	            <li>évaluer la contribution du maraîchage diversifié au marché du frais&nbsp;;</li>
+	            <li>appuyer les combats politiques du secteur du maraîchage diversifié&nbsp;;</li>
+	            <li>etc.</li>
+            </ul>
+	        </p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                aria-expanded="false" aria-controls="collapseTwo">
+	        Je suis maraîcher·ères, comment mes données vont-elles être utilisées ?
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+        <div class="accordion-body">
+          <p>
+						Seules les informations affichées dans <a href="{% url 'census:listing' %}">la liste</a> (nom de la ferme,
+	          commune, site web et page Facebook) sont publiquement accessibles sur la plateforme. Toutes les autres
+	          informations resteront <b>privées</b> et ne seront jamais utilisées associées à votre nom sans votre
+	          consentement.
+          </p>
+	        <p>
+		        Vos données seront par exemple utilisées pour dégager des statistiques sur le secteur (surface cultivée
+		        totale, nombre total d'équivalents temps plein dans le secteur, etc.).
+	        </p>
+	        <p>
+		        Si vous l'acceptez (en cochant la case correspondante dans le formulaire d'ajout/d'édition de votre ferme),
+		        votre adresse e-mail et/ou votre numéro de téléphone pourront être utilisés pour par l'UCLouvain pour vous
+		        contacter pour des questions liées à la recherche.
+	        </p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                aria-expanded="false" aria-controls="collapseThree">
+	        Qui est à l'origine de ce recensement ?
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
+        <div class="accordion-body">
+	        <p>
+						<!-- TODO: moi, ou PEPA ? -->
+	        </p>
+        </div>
+      </div>
+    </div>
+	</div>
+</div>
+
+<hr class="my-5">
+
+<div class="container mt-5 text-center">
+	<h2 class="text-center mb-4" id="contact">Contact</h2>
+	<p class="mb-4">
+		En cas de questions, remarques ou suggestions&nbsp;: n'hésitez pas à me contacter&nbsp;!
+	</p>
+	<div class="row">
+		<div class="col">
+			<p>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
+				  <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671"/>
+				  <path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791"/>
+				</svg>
+				<a href="mailto:antoine.paris@uclouvain.be">antoine.paris@uclouvain.be</a>
+			</p>
+		</div>
+
+		<div class="col">
+			<p>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+				  <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+				</svg>
+				<a href="tel:+32494447752">0494/44.77.52</a>
+			</p>
+		</div>
+
+		<div class="col">
+			<p>
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+				  <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+				</svg>
+				ELIA, Croix du Sud 2/L7.05.11, Kellner D279<br> 1348 Louvain-la-Neuve
+			</p>
+		</div>
+	</div>
+
+</div>
+
+{% endblock content %}

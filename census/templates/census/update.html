@@ -1,0 +1,15 @@
+{% extends "census/farm_form.html" %}
+
+{% block content-header %}
+
+	<a href="{% url 'census:listing' %}" class="btn btn-sm btn-secondary mb-4" >← Retour à la liste</a>
+
+	<h1>Modifier les informations d'une ferme</h1>
+
+	{% if not display_form %}
+		<p class="alert alert-danger" role="alert">
+			Le lien d'édition a expiré. Vous pouvez en demander un nouveau <a href="{% url 'census:farm' farm_id %}">ici</a>.
+		</p>
+	{% endif %}
+
+{% endblock content-header %}

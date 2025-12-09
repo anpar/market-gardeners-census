@@ -1,0 +1,23 @@
+<label for="{{ field.id_for_label }}" class="col-form-label">
+	{% if field.field.required %}
+		<b>{{ field.label }} <small>*</small></b>
+	{% else %}
+		{{ field.label }}
+	{% endif %}
+</label>
+
+{{ field }}
+
+{% if field.errors %}
+	<div class="invalid-feedback d-block">
+		{% for error in field.errors %}
+			{{ error }}
+		{% endfor %}
+  </div>
+{% endif %}
+
+{% if field.help_text %}
+	<p class="form-text mb-0">
+		{{ field.help_text }}
+	</p>
+{% endif %}

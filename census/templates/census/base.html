@@ -1,0 +1,83 @@
+{% load static %}
+
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="{% static 'census/css/bootstrap.css' %}">
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.3.5/css/dataTables.dataTables.css" />
+
+	<title>{% block title %}Recensement des fermes maraîchères diversifiées{% endblock %}</title>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<!-- TODO: fix toggler on mobile -->
+<nav class="navbar navbar-expand-lg bg-body-secondary">
+	<div class="container-fluid">
+		<span class="navbar-brand mb-0 h1">🥕</span>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="/">Acceuil</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'census:listing' %}">Liste</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{% url 'census:map' %}">Carte</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/#faq">À propos</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/#contact">Contact</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<!-- FOOTER -->
+<!-- TODO: fix responsiveness on mobile -->
+<div class="container">
+	<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+		<p class="col-md-4 mb-0 text-body-secondary">
+			Développé et maintenu par <a href="mailto:antoine.paris@uclouvain.be">Antoine Paris</a><br>
+			<a href="https://www.uclouvain.be/en/research-institutes/eli" target="_blank">Earth and Life Institue</a>,
+			<a href="https://www.uclouvain.be/fr" target="_blank">UCLouvain</a>
+		</p>
+		<span class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto">
+			🥕
+		</span>
+		<ul class="nav col-md-4 justify-content-end">
+			<li class="nav-item">
+				<a href="/#faq" class="nav-link px-2 text-body-secondary">À propos</a>
+			</li>
+			<li class="nav-item">
+				<a href="/#contact" class="nav-link px-2 text-body-secondary">Contact</a>
+			</li>
+			<li class="nav-item">
+				<a href="#" class="nav-link px-2 text-body-secondary">Retour en haut ↑</a>
+			</li>
+		</ul>
+	</footer>
+</div>
+
+<!-- TODO : check if everything is needed and if not better with local files -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
+{% block script %}{% endblock %}
+
+</body>
+</html>
