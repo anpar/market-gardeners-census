@@ -1,0 +1,181 @@
+{% extends "census/base.html" %}
+
+{% load show_field %}
+
+{% block content %}
+
+	<div class="container mt-4">
+		{% block content-header %}
+			<!-- Surchargé dans add.html et edit.html -->
+		{% endblock content-header %}
+
+		<hr class="my-4">
+
+		<p class="alert alert-info">
+			Seuls 3 champs (indiqués en <b>gras</b> avec une <b>*</b>) sont obligatoires.
+		</p>
+
+		<p class="alert alert-warning">
+	    Seules les informations affichées dans <a href="{% url 'census:listing' %}">la liste</a> (nom, commune,
+			site web et page Facebook) sont publiquement accessibles sur la plateforme. Toutes les autres données
+			resteront <b>privées</b> et ne seront jamais utilisées associées à votre nom sans votre consentement.
+		</p>
+
+		{% if display_form %}
+			{% if form.errors %}
+			<p class="alert alert-danger" role="alert">
+				Le formulaire comporte une ou plusieurs erreurs, détaillée(s) en rouge ci-dessous.
+				Corrigez-le avant de le renvoyer.
+			</p>
+			{% endif %}
+
+			{% if messages %}
+				<p class="alert alert-success" role="alert">
+					{% for m in messages %}
+						{{ m }}
+					{% endfor %}
+	      </p>
+			{% endif %}
+
+			{{ form.non_field_errors }}
+
+			<form action="" method="post" class="align-items-start">
+				{% csrf_token %}
+
+				<fieldset class="row border rounded-3 p-3 mt-4 bg-body-tertiary">
+					<legend>Identification de la ferme</legend>
+
+					<div class="col-md-6">
+						<!-- Voir show_field inclusion tag in templatetags -->
+						{% show_field form.name %}
+					</div>
+
+					<div class="col-md-6">
+						{% show_field form.municipality %}
+					</div>
+
+					<div class="col-md-6">
+						{% show_field form.address %}
+					</div>
+
+					<div class="col-md-6">
+						{% show_field form.GPS_coordinates %}
+					</div>
+
+					<div class="col-md-6">
+						{% show_field form.website %}
+					</div>
+
+					<div class="col-md-6">
+						{% show_field form.fb_page %}
+					</div>
+				</fieldset>
+
+				<fieldset class="row border rounded-3 p-3 mt-4 bg-body-tertiary">
+					<legend>Contacts</legend>
+
+					<div class="col-md-6">
+						{% show_field form.email %}
+					</div>
+
+					<div class="col-md-6">
+						{% show_field form.phone %}
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-check mt-3">
+							<label for="{{ form.consent.id_for_label }}" class="form-check-label">
+								<b>{{ form.consent.label }}</b>
+							</label>
+
+							{{ form.consent }}
+
+							{% if form.consent.errors %}
+								<div class="invalid-feedback d-block">
+									{% for error in form.consent.errors %}
+										{{ error }}
+									{% endfor %}
+					      </div>
+							{% endif %}
+
+							{% if form.consent.help_text %}
+								<p class="form-text mb-0">
+									{{ form.consent.help_text }}
+								</p>
+							{% endif %}
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset class="row border rounded-3 p-3 mt-4 bg-body-tertiary">
+					<legend>Caractéristiques de la ferme</legend>
+
+					<div class="col-md-6">
+						{% show_field form.area %}
+					</div>
+
+					<div class="col-md-6">
+						{% show_field form.production %}
+					</div>
+
+					<div class="col-md-6">
+						{% show_field form.FTE %}
+					</div>
+
+					<div class="col-auto"></div>
+
+					<div class="col-md-6">
+						{% show_field form.start_year %}
+					</div>
+
+					<div class="col-md-6">
+						{% show_field form.end_year %}
+					</div>
+				</fieldset>
+
+				<!-- TODO: make it work some day
+				<fieldset class="row border rounded-3 p-3 mt-4 bg-body-tertiary">
+					<legend>Maraîcher·ères associé·es à cette ferme</legend>
+					{{ formset_mg.management_form }}
+					{% for form in formset_mg %}
+						{{ form.id }}
+						<div class="col-md-6">
+							{% show_field form.firstname %}
+						</div>
+						<div class="col-md-6">
+							{% show_field form.lastname %}
+						</div>
+						<div class="col-md-6">
+							{% show_field form.email %}
+						</div>
+						<div class="col-md-6">
+							{% show_field form.phone %}
+						</div>
+						<div class="col-md-6 mt-3 text-danger">
+							{% show_field form.DELETE %}
+						</div>
+
+						{% if not forloop.last %}
+							<hr class="my-4">
+						{% endif %}
+					{% endfor %}
+
+					<div class="col-md-12 mt-3">
+						<a class="btn btn-success">
+							Ajouter un·e maraîcher·ère
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+	              <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+							</svg>
+						</a>
+					</div>
+				</fieldset>
+				-->
+
+				<div class="mt-2 text-center">
+					<input class="btn btn-primary" type="submit" value="Envoyer">
+				</div>
+			</form>
+		{% endif %}
+	</div>
+
+{% endblock content %}

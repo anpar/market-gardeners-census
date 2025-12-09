@@ -1,0 +1,93 @@
+{% extends "census/base.html" %}
+
+{% block content %}
+
+	<div class="container mt-4">
+		<h1>Liste des fermes maraîchères diversifiées</h1>
+		<p class="alert alert-warning" role="alert">
+			Vous (ou un collègue, ou votre maraîcher·ère préféré·e) n'êtes pas dans la liste ? <a href="{% url 'census:create' %}">Signalez-le nous !</a>
+		</p>
+		<p class="alert alert-info" role="alert">
+				Vous voulez corriger ou mettre à jour les données de votre ferme ? Cliquez sur son nom dans la liste.
+		</p>
+
+		<hr class="my-4">
+
+		{% if farms %}
+			<div class="text-center mt-4 mb-4">
+				<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="Brabant wallon">Brabant wallon</button>
+				<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="Hainaut">Hainaut</button>
+				<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="Namur">Namur</button>
+				<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="Liège">Liège</button>
+				<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="Luxembourg">Luxembourg</button>
+				<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="Bruxelles|(Brabant flamand)">Bruxelles <small>(et communes à facilités)</small></button>
+				<button type="button" class="btn btn-secondary active mt-1" onClick="filterProvince(this)" data-filter="">Tout afficher</button>
+			</div>
+      <table id="farm-list" class="table table-striped">
+          <thead>
+              <tr>
+                  <th>Nom</th>
+                  <th>Commune</th>
+                  <th>Province</th>
+	                <th>Site web</th>
+	                <th>Page Facebook</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for f in farms %}
+                  <tr>
+	                    <td><a href="{% url 'census:view' f.id %}">{{ f.name }}</a></td>
+                      <td>{{ f.municipality }}</td>
+                      <td>{{ f.municipality.province }}</td>
+                      <td>
+	                      {% if f.website %}
+	                        <a href="{{ f.website }}" target="_blank">{{ f.website|truncatechars:15 }}</a>
+	                      {% endif %}
+                      </td>
+                      <td>
+	                      {% if f.fb_page %}
+	                        <a href="{{ f.fb_page }}" target="_blank">{{ f.fb_page|truncatechars:15 }}</a>
+                        {% endif %}
+                      </td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+		{% else %}
+	    <p class="alert alert-danger" role="alert">
+		    La base de données est vide !
+	    </p>
+		{% endif %}
+	</div>
+
+{% endblock content %}
+
+{% block script %}
+<!-- TODO: passer cela en local pour gagner du temps de chargement ? -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/2.3.5/js/dataTables.js"></script>
+
+<script>
+	let table = $('#farm-list').DataTable({
+		paging: false,
+		searching: true,
+		scrollCollapse: true,
+    scrollY: '350px',
+		order: [[1, 'asc']],
+		language: {
+        url: 'https://cdn.datatables.net/plug-ins/2.3.5/i18n/fr-FR.json',
+    },
+	})
+
+	function filterProvince(btn) {
+		table.column(2).search(btn.getAttribute('data-filter'), true).draw()
+		let buttons = document.getElementsByTagName('button')
+		for (var i = 0; i < buttons.length; i++) {
+			buttons[i].classList.remove('active')
+		}
+
+		btn.classList.add('active')
+	}
+</script>
+
+{% endblock script %}

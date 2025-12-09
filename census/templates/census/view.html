@@ -1,0 +1,113 @@
+{% extends "census/base.html" %}
+
+{% block content %}
+
+{% if farm %}
+
+	<div class="container mt-4">
+		<a href="{% url 'census:listing' %}" class="btn btn-sm btn-secondary mb-4" >← Retour à la liste</a>
+
+		<h1>Modifier les informations d'une ferme</h1>
+
+		<hr class="my-4">
+
+		<!-- Affichage d'un "faux" formulaire entièrement disabled -->
+		<form class="row g-3 align-items-center">
+	    <div class="col-md-6">
+	      <label for="name" class="col-form-label">
+		      Nom de la ferme
+	      </label>
+	      <input type="text" id="name" class="form-control" placeholder="{{ object.name }}" disabled>
+	    </div>
+
+			<div class="col-md-6">
+	      <label for="municipality" class="col-form-label">
+		      Commune
+	      </label>
+				<select class="form-select" id="municipality" aria-label="Commune" disabled>
+				  <option value="{{ object.municipality }}">{{ object.municipality }}</option>
+				</select>
+	    </div>
+
+			<div class="col-md-6">
+	      <label for="website" class="col-form-label">
+		      Site web
+	      </label>
+				<input type="url" id="website" class="form-control"
+				       placeholder="{% if object.website %}{{ object.website }}{% endif %}" disabled>
+	    </div>
+
+			<div class="col-md-6">
+	      <label for="fb_page" class="col-form-label">
+		      Page Facebook
+	      </label>
+				<input type="url" class="form-control" id="fb_page"
+				       placeholder="{% if object.fb_page %}{{ object.fb_page }}{% endif %}" disabled>
+	    </div>
+		</form>
+	</div>
+
+	<!-- Affichage des instructions pour réellement modifier les informations de cette ferme -->
+	<div class="container mt-4">
+		<div class="alert alert-info" role="alert">
+			<p class="text-justify">
+				<!-- TODO: re-formuler -->
+				<b>Vous êtes (co-)responsable de cette ferme ?</b> Pour modifier ces informations publiques (et d'autres privées),
+				indiquez ci-dessous l'adresse e-mail de votre ferme/projet de maraîchage. Vous recevrez un lien unique valable 24 heures
+				permettant d'éditer votre ferme. Merci d'avance pour votre contribution au recensement !
+			</p>
+
+			<!-- Si un ou plusieurs mails pour cette ferme se trouve dans la base de données, afficher le formulaire -->
+			{% if censored_emails %}
+
+				{{ form.non_field_errors }}
+
+				<form action="" method="post" class="row g-3">
+					{% csrf_token %}
+
+					<div class="col-md-4">
+						{{ form.email }}
+					</div>
+
+					<div class="col-md-4">
+						<button type="submit" class="btn btn-primary">Recevoir le lien</button>
+					</div>
+
+					<!-- Affichage du message de réussite -->
+					{% if messages %}
+							{% for m in messages %}
+								{% if m.tags == 'success' %}
+									<div class="valid-feedback d-block">{{ m }}</div>
+								{% endif %}
+								{% if m.tags == 'error' %}
+									<div class="invalid-feedback d-block">
+										{{ m }}
+										Vous pensez que c'est une erreur ? <a href="mailto:antoine.paris@uclouvain.be">Contactez-nous</a>.
+									</div>
+								{% endif %}
+							{% endfor %}
+					{% endif %}
+
+				<div class="form-text">
+					L'adresse indiquée doit correspondre à {{ censored_emails|length|pluralize:"celle présente, l'une de celles présentes" }} dans notre base de données pour votre ferme
+					({% for email in censored_emails %}{{ email }}{% if not forloop.last %}, {% endif %}{% endfor%}).
+					Ce {{ censored_emails|length|pluralize:"n'est pas la bonne adresse, ne sont pas les bonnes adresses" }} ? <a href="mailto:antoine.paris@uclouvain.be">Contactez-nous</a> pour régler cela.
+				</div>
+			</form>
+
+			<!-- Si la base de données ne contient pas d'adresses e-mail pour ce projet -->
+			{% else %}
+				<div class="alert alert-danger" role="alert">
+					Notre base de données ne contient pas d'adresse e-mail pour votre ferme.
+					<a href="mailto:antoine.paris@uclouvain.be">Contactez-nous</a> pour régler cela.
+				</div>
+			{% endif %}
+
+		</div>
+	</div>
+
+{% else %}
+  <p>La ferme demandée n'existe pas.</p>
+{% endif %}
+
+{% endblock content %}
