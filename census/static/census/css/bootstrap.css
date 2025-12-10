@@ -12068,7 +12068,7 @@ textarea.form-control-lg {
     Make invalid feedbacks in form more visible
  */
 .invalid-feedback {
-    font-weight: 500 !important;
+    font-weight: 600 !important;
 }
 
 /*# sourceMappingURL=bootstrap.css.map */
