@@ -1,6 +1,7 @@
 """
     For deployment, read:
     - https://www.digitalocean.com/community/tutorials/how-to-deploy-django-to-app-platform
+    - https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 """
 
 import os
