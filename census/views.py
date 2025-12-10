@@ -1,3 +1,8 @@
+import datetime
+
+from string import ascii_letters, digits
+from random import choice
+
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -66,6 +71,8 @@ class GetEditLinkFormView(generic.FormView):
 
             # Create a new expiring unique edit link
             link = ExpiringUniqueEditLink(farm_id=farm_id)
+            link.token = ''.join(choice(ascii_letters + digits) for i in range(60))
+            link.expiration_date = timezone.now() + datetime.timedelta(days=1)
             link.save()
 
             # Build absolute URI

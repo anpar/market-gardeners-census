@@ -1,8 +1,3 @@
-import datetime
-
-from string import ascii_letters, digits
-from random import choice
-
 from django.contrib import admin
 from django.db import models
 from django.db.models.fields import CharField
@@ -278,12 +273,10 @@ class ExpiringUniqueEditLink(models.Model):
     farm = models.ForeignKey(Farm, on_delete=models.CASCADE, verbose_name="Ferme associée")
 
     token = models.CharField(max_length=120, null=False, unique=True,
-                             default=''.join(choice(ascii_letters + digits) for i in range(60)),
                              verbose_name="Token d'accès unique")
 
     # TODO: check it its works whatever timezone
-    expiration_date = models.DateTimeField(null=False, default=datetime.datetime.now() + datetime.timedelta(days=1),
-                                           verbose_name="Date d'expiration")
+    expiration_date = models.DateTimeField(null=False, verbose_name="Date d'expiration")
 
     def __str__(self):
         return self.farm.name
