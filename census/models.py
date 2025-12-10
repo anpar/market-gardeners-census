@@ -192,7 +192,7 @@ class Farm(models.Model):
                                             " (Utiliser le champ commentaire pour détailler.)")
 
     edited_by_user = models.BooleanField(default=True,
-                                         verbose_name="Modifié par utilisateur",
+                                         verbose_name="Edited by user",
                                          help_text="Indique si les données ont été éditées par un·e utilisateur·rice.")
 
     ADDED_BY = {
@@ -208,11 +208,6 @@ class Farm(models.Model):
     @admin.display(boolean=True, description="Actif", ordering="end_year")
     def is_active(self):
         return self.end_year is None
-
-    # A bit hacky, allows the admin to show a red cross when a Farm is flagged
-    @admin.display(boolean=True, description="Valide", ordering="flagged")
-    def rev_flagged(self):
-        return not self.flagged
 
     def email_list(self):
         return [self.email] + list(self.marketgardener_set.values_list("email", flat=True))
@@ -244,6 +239,7 @@ class MarketGardener(models.Model):
                                  verbose_name="Prénom")
 
     lastname = models.CharField(max_length=100,
+                                blank=True,
                                 verbose_name="Nom de famille")
 
     # See https://django-phonenumber-field.readthedocs.io/en/latest/index.html

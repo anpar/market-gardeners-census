@@ -86,7 +86,7 @@ def mark_user(modeladmin, request, queryset):
     queryset.update(added_by="User")
 
 class FarmAdmin(ImportExportModelAdmin):
-    list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'production', 'rev_flagged',
+    list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'production', 'flagged',
                     'is_active', 'public', 'consent_display', 'email', 'phone', 'added_by', 'edited_by_user', 'last_update')
     ordering = ['name']
     search_fields = ['name']
@@ -125,6 +125,7 @@ class FarmAdmin(ImportExportModelAdmin):
                 "public",
                 "added_by",
                 "edited_by_user",
+                "flagged",
             ],
             "classes": [""]
         })
