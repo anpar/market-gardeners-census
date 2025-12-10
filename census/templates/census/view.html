@@ -51,10 +51,9 @@
 	<div class="container mt-4">
 		<div class="alert alert-info" role="alert">
 			<p class="text-justify">
-				<!-- TODO: re-formuler -->
 				<b>Vous êtes (co-)responsable de cette ferme ?</b> Pour modifier ces informations publiques (et d'autres privées),
-				indiquez ci-dessous l'adresse e-mail de votre ferme/projet de maraîchage. Vous recevrez un lien unique valable 24 heures
-				permettant d'éditer votre ferme. Merci d'avance pour votre contribution au recensement !
+				indiquez ci-dessous l'adresse e-mail de votre ferme/projet de maraîchage. Vous recevrez un lien unique valable
+				24 heures permettant d'éditer votre ferme. Merci d'avance pour votre contribution au recensement !
 			</p>
 
 			<!-- Si un ou plusieurs mails pour cette ferme se trouve dans la base de données, afficher le formulaire -->
@@ -73,7 +72,7 @@
 						<button type="submit" class="btn btn-primary">Recevoir le lien</button>
 					</div>
 
-					<!-- Affichage du message de réussite -->
+					<!-- Affichage des messages -->
 					{% if messages %}
 							{% for m in messages %}
 								{% if m.tags == 'success' %}
@@ -82,16 +81,17 @@
 								{% if m.tags == 'error' %}
 									<div class="invalid-feedback d-block">
 										{{ m }}
-										Vous pensez que c'est une erreur ? <a href="mailto:antoine.paris@uclouvain.be">Contactez-nous</a>.
+										Vous pensez que c'est une erreur ? <a href="/#contact">Contactez-nous</a>.
 									</div>
 								{% endif %}
 							{% endfor %}
 					{% endif %}
 
 				<div class="form-text">
-					L'adresse indiquée doit correspondre à {{ censored_emails|length|pluralize:"celle présente, l'une de celles présentes" }} dans notre base de données pour votre ferme
-					({% for email in censored_emails %}{{ email }}{% if not forloop.last %}, {% endif %}{% endfor%}).
-					Ce {{ censored_emails|length|pluralize:"n'est pas la bonne adresse, ne sont pas les bonnes adresses" }} ? <a href="mailto:antoine.paris@uclouvain.be">Contactez-nous</a> pour régler cela.
+					L'adresse indiquée doit correspondre à {{ censored_emails|length|pluralize:"celle présente, l'une de celles présentes" }}
+					dans notre base de données pour votre ferme ({% for email in censored_emails %}{{ email }}{% if not forloop.last %}, {% endif %}{% endfor%}).
+					Ce {{ censored_emails|length|pluralize:"n'est pas la bonne adresse, ne sont pas les bonnes adresses" }} ?
+					<a href="/#contact">Contactez-nous</a> pour régler cela.
 				</div>
 			</form>
 
@@ -99,7 +99,7 @@
 			{% else %}
 				<div class="alert alert-danger" role="alert">
 					Notre base de données ne contient pas d'adresse e-mail pour votre ferme.
-					<a href="mailto:antoine.paris@uclouvain.be">Contactez-nous</a> pour régler cela.
+					<a href="/#contact">Contactez-nous</a> pour régler cela.
 				</div>
 			{% endif %}
 
