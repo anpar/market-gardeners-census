@@ -6,6 +6,8 @@ from census.models import Municipality, Farm, MarketGardener, OtherLinks, Expiri
 from import_export import fields, resources
 from import_export.admin import ImportExportModelAdmin
 
+admin.site.site_header = 'Administration'
+
 """
     MUNICIPALITY
 """
