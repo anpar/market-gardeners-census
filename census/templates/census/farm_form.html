@@ -9,19 +9,20 @@
 			<!-- Surchargé dans add.html et edit.html -->
 		{% endblock content-header %}
 
-		<hr class="my-4">
-
-		<p class="alert alert-info">
-			Seuls 3 champs (indiqués en <b>gras</b> avec une <b>*</b>) sont obligatoires.
-		</p>
-
-		<p class="alert alert-warning">
-	    Seules les informations affichées dans <a href="{% url 'census:listing' %}">la liste</a> (nom, commune,
-			site web et page Facebook) sont publiquement accessibles sur la plateforme. Toutes les autres données
-			resteront <b>privées</b> et ne seront jamais utilisées associées à votre nom sans votre consentement.
-		</p>
-
 		{% if display_form %}
+
+			<hr class="my-4">
+
+			<p class="alert alert-info">
+				Seuls 3 champs (indiqués en <b>gras</b> avec une <b>*</b>) sont obligatoires.
+			</p>
+
+			<p class="alert alert-warning">
+		    Seules les informations affichées dans <a href="{% url 'census:listing' %}">la liste</a> (nom, commune,
+				site web et page Facebook) sont publiquement accessibles sur la plateforme. Toutes les autres données
+				resteront <b>privées</b> et ne seront jamais utilisées associées à votre nom sans votre consentement.
+			</p>
+
 			{% if form.errors %}
 			<p class="alert alert-danger" role="alert">
 				Le formulaire comporte une ou plusieurs erreurs, détaillée(s) en rouge ci-dessous.
