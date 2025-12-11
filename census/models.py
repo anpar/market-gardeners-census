@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.db import models
-from django.db.models.fields import CharField
+from django.db.models import Q
 
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -38,13 +38,7 @@ class Municipality(models.Model):
         return self.name
 
 class Farm(models.Model):
-    class Meta:
-        verbose_name = "Ferme"
-        verbose_name_plural = verbose_name + "s"
 
-    '''
-        IDENTIFICATION DE LA FERME
-    '''
     name = models.CharField(max_length=250,
                             verbose_name="Nom de la ferme")
 
@@ -67,7 +61,7 @@ class Farm(models.Model):
                                verbose_name="Adresse du lieu de production",
                                help_text="Nom de la rue et numéro du lieu de production.")
 
-    GPS_coordinates = CharField(max_length=40,
+    GPS_coordinates = models.CharField(max_length=40,
                                 blank=True,
                                 null=True,
                                 verbose_name="Coordonnées GPS",
@@ -76,20 +70,17 @@ class Farm(models.Model):
     # TODO: make a custom validator to accept URL starting with "www" ?
     website = models.URLField(blank=True,
                               null=True,
-                              unique=True,
                               verbose_name="Site web",
                               help_text="Doit commencer par http:// ou https://.")
 
     fb_page = models.URLField(blank=True,
                               null=True,
-                              unique=True,
                               verbose_name="Page Facebook")
 
     """
         INFORMATIONS DE CONTACT
     """
     email = models.EmailField(max_length=250,
-                              unique=True,
                               blank=False,
                               null=True,
                               verbose_name="Adresse email")
@@ -98,7 +89,6 @@ class Farm(models.Model):
     phone = PhoneNumberField(region='BE',
                              blank=True,
                              null=True,
-                             unique=True,
                              verbose_name="N° de téléphone",
                              help_text="Peut être un numéro fixe ou GSM.")
 
@@ -209,6 +199,38 @@ class Farm(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Ferme"
+        verbose_name_plural = verbose_name + "s"
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=["website"],
+                condition=~Q(website=""),
+                name="website_unique",
+                violation_error_message="Le site web indiquée est déjà utilisée par une ferme.",
+                violation_error_code="website_unique"
+            ),
+            models.UniqueConstraint(
+                fields=["phone"],
+                condition=~Q(phone=""),
+                name="phone_unique",
+                violation_error_message="Le numéro de téléphone indiquée est déjà utilisée par une ferme.",
+            ),
+            models.UniqueConstraint(
+                fields=["email"],
+                condition=~Q(email=""),
+                name="email_unique",
+                violation_error_message="L'adresse e-mail indiquée est déjà utilisée par une ferme.",
+            ),
+            models.UniqueConstraint(
+                fields=["fb_page"],
+                condition=~Q(fb_page=""),
+                name="fb_page_unique",
+                violation_error_message="La page Facebook indiquée est déjà utilisée par une ferme.",
+            )
+        ]
 
 class OtherLinks(models.Model):
     class Meta:

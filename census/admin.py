@@ -4,7 +4,7 @@ from import_export.widgets import ForeignKeyWidget
 from census.models import Municipality, Farm, MarketGardener, OtherLinks, ExpiringUniqueEditLink
 
 from import_export import fields, resources
-from import_export.admin import ImportExportModelAdmin
+from import_export.admin import ImportExportModelAdmin, logger
 
 admin.site.site_header = 'Administration'
 
@@ -42,6 +42,8 @@ class MarketGardenerAdmin(ImportExportModelAdmin):
     list_display = ('lastname', 'firstname', 'farm', 'phone', 'email')
     ordering = ['lastname']
     search_fields = ['firstname', 'lastname']
+
+
 
 admin.site.register(MarketGardener, MarketGardenerAdmin)
 
