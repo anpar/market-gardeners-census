@@ -2,6 +2,10 @@
     For deployment, read:
     - https://www.digitalocean.com/community/tutorials/how-to-deploy-django-to-app-platform
     - https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+
+    IMPORTANT NOTE:
+    - update your local environment variables: DEBUG=True and DEVELOPMENT_MODE=True to avoid weird stuff
+    (both should be False in production)
 """
 
 import os
@@ -29,7 +33,6 @@ ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split("
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 # Application definition
-
 INSTALLED_APPS = [
     "import_export",
     "phonenumber_field",
@@ -121,7 +124,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Default primary key field type
@@ -129,7 +132,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# TODO: password storage + send with web host mail server
+# TODO: fix password storage + send with web host mail server
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
