@@ -49,7 +49,7 @@ class FarmUpdatePreviewView(generic.DetailView):
         email_list = self.get_object().email_list()
 
         # There probably is a nicer way of censoring those emails (with python regex module 're' ?)
-        context['censored_emails'] = ["*" * len(e.split('@')[0]) + "@" + e.split('@')[1] for e in email_list if e is not None]
+        context['censored_emails'] = ["*" * len(e.split('@')[0]) + "@" + e.split('@')[1] for e in email_list if e is not None and e is not ""]
 
         context['form'] = EmailForm()
 
