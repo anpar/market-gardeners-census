@@ -1,12 +1,17 @@
 {% extends "census/base.html" %}
 
 {% block content %}
-<!-- TODO: rename class "test" and move css at the end of bootstrap.css -->
+
 <div class="p-5 text-center bg-body-tertiary home-page-bg">
 	<div class="container py-5">
 		<div style="padding: 15px; background-color: rgba(255,255,255,0.9); border-radius: 10px;">
-			<!-- TODO: ou "Observatoire du maraîchage diversifié sur petites et moyennes surfaces" ? -->
-			<h1 class="display-4">Plateforme de recensement des fermes maraîchères <strong>diversifiées</strong></h1>
+			<!-- TODO: ou "Observatoire du maraîchage diversifié sur petites et moyennes surfaces" ou
+			"Plateforme de recensement du maraîchage diversifié ? -->
+			<h1 class="display-4">
+				Plateforme de recensement des fermes maraîchères
+				<strong title="C'est-à-dire cultivant au minimum 12 catégories de légumes.">diversifiées</strong>
+				<!-- TODO: préciser d'emblée ce que signifie diversifié ici ? -->
+			</h1>
 			<p class="lead">Déjà <b>{{ farm_count }}</b> fermes recensées, dans <b>{{ municipality_count }}</b> communes.</p>
 			<hr class="my-4">
 			<p class="lead">
@@ -28,9 +33,10 @@
 		    Il y a plein de façon de contribuer au recensement !
 		    <span class="badge rounded-pill text-bg-primary">1</span> Parcourez <a href="{% url 'census:listing' %}">la liste</a> des
 		    fermes maraîchères diversifiées et, si vous n'y êtes pas, <a href="{% url 'census:create' %}">ajoutez la vôtre</a>&nbsp;!
-		    <span class="badge rounded-pill text-bg-primary">2</span> Si votre ferme est déjà reprise dans <a href="{% url 'census:listing' %}">la liste</a>,
-		    modifiez-la pour compléter d'autres informations pertinentes pour le recensement (surface cultivée, année d'installation, etc.)
-		    <span class="badge rounded-pill text-bg-primary">3</span> Parlez-en à vos collègues  maraîcher·ères ou ajoutez vous-mêmes leur ferme sur la plateforme.
+		    <span class="badge rounded-pill text-bg-primary">2</span> Si votre ferme est déjà reprise dans
+		    <a href="{% url 'census:listing' %}">la liste</a>, modifiez-la pour valider et compléter ces informations.
+		    <span class="badge rounded-pill text-bg-primary">3</span> Parlez-en à vos collègues maraîcher·ères ou <a href="#contact">contactez-nous</a>
+		    pour signaler les fermes manquantes.
 			</p>
 	    <p class="lead">
 				<a class="btn btn-success" href="{% url 'census:listing' %}" role="button">Voir la liste</a>
@@ -40,8 +46,7 @@
 	    <h4>Citoyen·nes</h4>
 	    <p>
 				Si vos maraîcher·ères préféré·es ne se trouvent pas dans la <a href="{% url 'census:listing' %}">la liste</a>,
-		    <a href="mailto:antoine.paris@uclouvain.be">contactez-nous</a> en précisant le nom de la ferme, la commune dans
-		    laquelle elle se situe et toute autre information à votre disposition (site web, page Facebook, etc.).
+		    <a href="#contact">contactez-nous</a> pour nous le signaler&nbsp;!
 			</p>
 	    <p class="lead">
 				<a class="btn btn-success" href="{% url 'census:listing' %}" role="button">Voir la liste</a>
@@ -69,20 +74,19 @@
 		        Parce que aujourd'hui, personne ne sait vraiment combien de maraîcher·ères diversifié·es produisent des
 		        légumes en Wallonie. <b>Il n'existe pas de recensement exhaustif</b>. On ne sait donc pas non plus vraiment
 		        quelle surface est cultivée par les maraîcher·ères diversifié·es, combien d'équivalents temps plein travaillent
-		        dans le secteur, combien de maraîcher·ères s'installent chaque année ou, malheureusement, combien cessent
+		        dans le secteur, combien de maraîcher·ères s'installent chaque année ou au contraire combien cessent
 		        leur activité.
 	        </p>
 	        <p>
 						Collecter ces informations de base sur le secteur du maraîchage diversifié nous semble pertinent pour
 		        plusieurs raisons&nbsp;:
 		        <ul>
-              <li>favoriser les collaborations entre maraîcher·ères à l'échelle territoriale en cartographiant
-	              les producteurs&nbsp;;</li>
 	            <li>servir de support à la recherche scientifique sur le maraîchage diversifié à l'UCLouvain&nbsp;;</li>
 	            <li>étudier l'évolution du secteur dans le temps&nbsp;;</li>
 	            <li>évaluer la contribution du maraîchage diversifié au marché du frais&nbsp;;</li>
+	            <li>favoriser les collaborations entre maraîcher·ères à l'échelle territoriale en cartographiant les producteurs&nbsp;;</li>
 	            <li>appuyer les combats politiques du secteur du maraîchage diversifié&nbsp;;</li>
-	            <li>etc.</li>
+	            <li>etc. (<a href="#contact">Contactez-nous si vous avez d'autres idées&nbsp;!)</a></li>
             </ul>
 	        </p>
         </div>
@@ -104,12 +108,13 @@
 	          consentement.
           </p>
 	        <p>
-		        Vos données seront par exemple utilisées pour dégager des statistiques sur le secteur (surface cultivée
-		        totale, nombre total d'équivalents temps plein dans le secteur, etc.).
+		        Vos données pourront par exemple utilisées pour obtenir des statistiques sur le secteur (surface cultivée
+		        totale, nombre total d'équivalents temps plein dans le secteur, etc.). Un rapport annuel sur les statistiques
+		        du maraîchage diversifié en Wallonie sera publié sur ce site web.
 	        </p>
 	        <p>
 		        Si vous l'acceptez (en cochant la case correspondante dans le formulaire d'ajout/d'édition de votre ferme),
-		        votre adresse e-mail et/ou votre numéro de téléphone pourront être utilisés pour par l'UCLouvain pour vous
+		        votre adresse e-mail et/ou votre numéro de téléphone pourront être utilisés par l'UCLouvain pour vous
 		        contacter pour des questions liées à la recherche.
 	        </p>
         </div>
@@ -138,7 +143,7 @@
 <div class="container mt-5 text-center">
 	<h2 class="text-center mb-4" id="contact">Contact</h2>
 	<p class="mb-4">
-		En cas de questions, remarques ou suggestions&nbsp;: n'hésitez pas à me contacter&nbsp;!
+		En cas de questions, remarques ou suggestions&nbsp;: n'hésitez pas à nous contacter&nbsp;!
 	</p>
 	<div class="row">
 		<div class="col">
