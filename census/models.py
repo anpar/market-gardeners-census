@@ -242,9 +242,11 @@ class OtherLinks(models.Model):
                              verbose_name="Ferme")
 
     author = models.CharField(max_length=100,
+                              blank=True,
                               verbose_name="Auteur")
 
     title = models.CharField(max_length=255,
+                             blank=True,
                              verbose_name="Titre")
 
     link = models.URLField(unique=True,
