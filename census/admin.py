@@ -91,7 +91,8 @@ def mark_user(modeladmin, request, queryset):
 
 class FarmAdmin(ImportExportModelAdmin):
     list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'production', 'flagged',
-                    'is_active', 'public', 'consent_display', 'email', 'phone', 'added_by', 'edited_by_user', 'last_update')
+                    'is_active', 'public', 'consent_display', 'email', 'phone', 'added_by', 'edited_by_user',
+                    'last_update', 'research_priorities')
     ordering = ['name']
     search_fields = ['name']
     actions = [make_public, hide, mark_staff, mark_user]
@@ -112,7 +113,8 @@ class FarmAdmin(ImportExportModelAdmin):
                 "FTE",
                 "production",
                 "start_year",
-                "end_year"],
+                "end_year",
+                "research_priorities"],
             "classes": [""]
         }),
         ("Contacts", {
