@@ -13,4 +13,5 @@ urlpatterns = [
     path("create/", views.FarmCreateView.as_view(), name="create"),
     path("thanks/<int:farm_id>/", views.thanks, name="thanks"),
     path("update/<str:token>/", views.FarmUpdateView.as_view(), name="update"),
+    path("cgu/", views.cgu, name='cgu')
 ]

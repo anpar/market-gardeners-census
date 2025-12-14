@@ -24,6 +24,9 @@ def index(request):
 
     return render(request, "census/index.html", context)
 
+def cgu(request):
+    return render(request, "census/cgu.html")
+
 class MapView(generic.ListView):
     template_name = "census/map.html"
     context_object_name = "farms"
