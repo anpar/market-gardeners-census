@@ -1,12 +1,46 @@
 {% extends "census/base.html" %}
 
+{% block additional_css %}
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+	      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+	      crossorigin=""/>
+{% endblock additional_css %}
+
 {% block content %}
 	<div class="container mt-4">
 		<h1>Carte des fermes maraîchères diversifiées</h1>
-		<p class="alert alert-warning mt-4" role="alert">
-			Il y aura bientôt ici une carte reprenant toutes les fermes maraîchères recensées. Revenez plus tard !
-		</p>
 
-		<!--<hr class="my-4">-->
+		<hr class="my-4">
+
+	  <div id="map"></div>
 	</div>
 {% endblock content %}
+
+{% block script %}
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+	        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+	        crossorigin=""></script>
+
+	<script>
+		const map = L.map('map').setView([50.420, 5.011], 8);
+
+		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	    maxZoom: 19,
+	    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		}).addTo(map);
+
+		{% for f in farms %}
+			var GPS_coordinates = '{{ f.GPS_coordinates }}'
+			var coord = GPS_coordinates.split(", ")
+			var marker = L.marker([coord[0], coord[1]]).addTo(map);
+			marker.bindPopup("{{ f.name }} ({{ f.municipality.name }})")
+			var icon = marker.options.icon;
+			console.log(icon.options.iconSize)
+			icon.options.iconSize = [15, 25];
+			icon.options.shadowSize = [15, 25];
+			//icon.options.iconAnchor = [0, 0];
+			marker.setIcon(icon);
+		{% endfor %}
+
+	</script>
+{% endblock %}

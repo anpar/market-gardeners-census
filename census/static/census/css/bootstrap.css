@@ -12071,4 +12071,11 @@ textarea.form-control-lg {
     font-weight: 600 !important;
 }
 
+/*
+    Leaflet map: https://leafletjs.com/examples/quick-start/
+ */
+#map {
+    height: 500px;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
