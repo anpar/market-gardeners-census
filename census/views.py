@@ -32,7 +32,7 @@ class MapView(generic.ListView):
     context_object_name = "farms"
 
     def get_queryset(self):
-        return Farm.objects.filter(public=True, end_year=None).exclude(GPS_coordinates__isnull=True)
+        return Farm.objects.filter(public=True, end_year=None).exclude(GPS_coordinates='').exclude(GPS_coordinates=None)
 
 class ListingView(generic.ListView):
     template_name = "census/listing.html"

@@ -30,12 +30,10 @@
 		}).addTo(map);
 
 		{% for f in farms %}
-			var GPS_coordinates = '{{ f.GPS_coordinates }}'
-			var coord = GPS_coordinates.split(", ")
+			var coord = '{{ f.GPS_coordinates }}'.split(", ")
 			var marker = L.marker([coord[0], coord[1]]).addTo(map);
 			marker.bindPopup("{{ f.name }} ({{ f.municipality.name }})")
 			var icon = marker.options.icon;
-			console.log(icon.options.iconSize)
 			icon.options.iconSize = [15, 25];
 			icon.options.shadowSize = [15, 25];
 			//icon.options.iconAnchor = [0, 0];
