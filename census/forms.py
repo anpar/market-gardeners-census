@@ -55,6 +55,9 @@ class FarmForm(ModelForm):
             else:
                 visible.field.widget.attrs['class'] = 'form-control'
 
+                if visible.widget_type == 'textarea':
+                    visible.field.widget.attrs['rows'] = '5'
+
             if visible.name == 'GPS_coordinates':
                 visible.field.widget.attrs['placeholder'] = '50.66677974362429, 4.620421360598303'
 

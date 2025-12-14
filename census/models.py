@@ -116,11 +116,13 @@ class Farm(models.Model):
     def area_display(self):
         return self.area
 
+    # TODO: help_text
     FTE = models.DecimalField(decimal_places=1,
                               max_digits=4,
                               blank=True,
                               null=True,
-                              verbose_name="Nombre d'équivalents temps plein rémunérés")
+                              verbose_name="Nombre d'équivalents temps plein rémunérés",
+                              help_text="")
 
     @admin.display(description="ETPr")
     def fte_display(self):
@@ -153,6 +155,12 @@ class Farm(models.Model):
     @admin.display(description="Fin")
     def end_year_display(self):
         return self.end_year
+
+    # TODO: help_text
+    research_priorities = models.TextField(blank=True,
+                                           verbose_name="Selon vous, quelles devraient être les priorités "
+                                                        "de la recherche sur le maraîchage ?",
+                                           help_text="")
 
     """
         DIVERS

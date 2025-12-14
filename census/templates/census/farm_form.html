@@ -64,9 +64,13 @@
 						{% show_field form.address %}
 					</div>
 
+					<div class="col-auto"></div>
+
+					<!--
 					<div class="col-md-6">
 						{% show_field form.GPS_coordinates %}
-					</div>
+					</div
+					-->
 
 					<div class="col-md-6">
 						{% show_field form.website %}
@@ -136,6 +140,14 @@
 
 					<div class="col-md-6">
 						{% show_field form.end_year %}
+					</div>
+				</fieldset>
+
+			<fieldset class="row border rounded-3 p-3 mt-4 bg-body-tertiary">
+					<legend>Votre avis nous intéresse&nbsp;!</legend>
+
+					<div class="col-md-12">
+						{% show_field form.research_priorities %}
 					</div>
 				</fieldset>
 
