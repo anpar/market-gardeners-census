@@ -34,6 +34,11 @@ class Municipality(models.Model):
 
     population = models.IntegerField(verbose_name="Population (au 01/01/2025)")
 
+    GPS_coordinates = models.CharField(max_length=40,
+                                       blank=True,
+                                       verbose_name="Coordonnées GPS",
+                                       help_text="latitude, longitude de la commune (tel que fournit dans le .geojson des communes belges).")
+
     def __str__(self):
         return self.name
 

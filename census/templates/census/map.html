@@ -1,9 +1,12 @@
 {% extends "census/base.html" %}
 
+{% load static %}
+
 {% block additional_css %}
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 	      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
 	      crossorigin=""/>
+	<link rel="stylesheet" href="{% static 'census/css/leaflet.legend.css' %}" />
 {% endblock additional_css %}
 
 {% block content %}
@@ -20,25 +23,67 @@
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
 	        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
 	        crossorigin=""></script>
+	<script type="text/javascript" src="{% static 'census/js/leaflet.legend.js' %}"></script>
 
 	<script>
-		const map = L.map('map').setView([50.420, 5.011], 8);
+		const map = L.map('map').setView([50.220, 4.911], 8);
 
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    maxZoom: 19,
 	    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		}).addTo(map);
 
-		{% for f in farms %}
-			var coord = '{{ f.GPS_coordinates }}'.split(", ")
-			var marker = L.marker([coord[0], coord[1]]).addTo(map);
-			marker.bindPopup("{{ f.name }} ({{ f.municipality.name }})")
-			var icon = marker.options.icon;
-			icon.options.iconSize = [15, 25];
-			icon.options.shadowSize = [15, 25];
-			//icon.options.iconAnchor = [0, 0];
-			marker.setIcon(icon);
+		{% for m in municipalities %}
+			var coord = '{{ m.GPS_coordinates }}'.split(", ")
+
+			{% if m.farm_set.values %}
+				//var marker = L.marker([coord[0], coord[1]]).addTo(map);
+				var circle = L.circle([coord[0], coord[1]], {
+					color: 'blue',
+					opacity: 1.0,
+					fillColor: 'blue',
+					fillOpacity: 0.65,
+					radius: 1000 * Math.sqrt({{ m.farm_set.values|length }}),
+				}).addTo(map);
+
+				circle.bindPopup("<b>{{ m.name }}</b> :"
+												+"<ul>{% for f in m.farm_set.values %}{% if f.public %}<li>"
+												+"<a href={% url 'census:view' f.id %}>{{ f.name }}</a>"
+												+"</li>{% endif %}{% endfor %}</ul>")
+			{% else %}
+				var circle = L.circle([coord[0], coord[1]], {
+					color: 'gray',
+					opacity: 1.0,
+					fillColor: 'gray',
+					fillOpacity: 0.75,
+					radius: 1000,
+				}).addTo(map);
+				circle.bindPopup('<p><b>{{ m.name }}</b> : pas de ferme maraîchère diversifiée recensée dans cette commune.</p>'
+												+'<p class="text-center"><a class="btn btn-sm btn-success text-light" href="{% url 'census:create' %}">Ajouter votre ferme</a> '
+												+'ou <a href="/#contact">contactez-nous</a> !</p>')
+			{% endif %}
 		{% endfor %}
 
+		L.control.Legend({
+      position: "bottomleft",
+      legends: [{
+        label: "Commune sans maraîcher·ère recensé·e",
+        type: "circle",
+				color: 'gray',
+				opacity: 1.0,
+				fillColor: 'gray',
+				fillOpacity: 0.75,
+				radius: 500,
+      }, {
+				label: "Commune avec au moins un·e maraîcher·ère recensé·e",
+	      type: "circle",
+	      color: 'blue',
+				opacity: 1.0,
+				fillColor: 'blue',
+				fillOpacity: 0.65,
+	      radius: 500,
+      }]
+		}).addTo(map);
 	</script>
+
 {% endblock %}

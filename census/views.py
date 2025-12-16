@@ -5,6 +5,7 @@ from random import choice
 
 from django.core.mail import send_mail
 from django.shortcuts import render, get_object_or_404
+from django.template.context_processors import request
 from django.urls import reverse
 from django.views import generic
 from django.contrib import messages
@@ -12,7 +13,8 @@ from django.utils import timezone
 from django.views import View
 
 from .forms import EmailForm, FarmForm
-from .models import Farm, ExpiringUniqueEditLink
+from .models import Farm, ExpiringUniqueEditLink, Municipality
+
 
 def index(request):
     farm_list = Farm.objects.filter(public=True, end_year=None)
@@ -27,12 +29,13 @@ def index(request):
 def cgu(request):
     return render(request, "census/cgu.html")
 
+
 class MapView(generic.ListView):
     template_name = "census/map.html"
-    context_object_name = "farms"
+    context_object_name = "municipalities"
 
     def get_queryset(self):
-        return Farm.objects.filter(public=True, end_year=None).exclude(GPS_coordinates='').exclude(GPS_coordinates=None)
+        return Municipality.objects.all()
 
 class ListingView(generic.ListView):
     template_name = "census/listing.html"
