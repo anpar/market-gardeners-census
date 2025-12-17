@@ -1,5 +1,5 @@
-from django.core.mail import EmailMessage
 from django.shortcuts import render, get_object_or_404
+
 from django.urls import reverse
 from django.views import generic
 from django.contrib import messages
@@ -8,7 +8,7 @@ from django.views import View
 
 from .forms import EmailForm, FarmForm
 from .models import Farm, ExpiringUniqueEditLink, Municipality
-
+from .utils import send_email
 
 def index(request):
     farm_list = Farm.objects.filter(public=True, end_year=None)
@@ -76,16 +76,14 @@ class GetEditLinkFormView(generic.FormView):
             # Build absolute URI
             unique_edit_url = self.request.build_absolute_uri(reverse("census:update", args=(link.token,)))
 
-            email = EmailMessage(
-                subject="Votre lien d'édition unique",
-                body="Bonjour ! Voici le lien vous permettant de modifier votre ferme pendant 24 heures : " + unique_edit_url,
-                from_email="paris.antoine.paris@gmail.com",
-                to=[form.cleaned_data['email']],
-                cc=["antoine.paris@uclouvain.be"],
-                reply_to=["antoine.paris@uclouvain.be"]
-            )
+            context = {
+                "url": unique_edit_url,
+            }
 
-            email.send()
+            send_email([form.cleaned_data['email']],
+                       "Modifier votre ferme : votre lien unique",
+                       "edit_link",
+                       context)
 
             messages.success(self.request,"Le lien est parti et devrait arriver dans quelques minutes !"
                                           " Vérifiez vos courriers indésirables.")
@@ -123,14 +121,15 @@ class FarmCreateView(generic.CreateView):
         admin_change_url = self.request.build_absolute_uri(reverse("admin:census_farm_change",
                                                                    args=(new_farm.id,)))
 
-        email = EmailMessage(
-            subject="Une nouvelle ferme a été ajoutée !",
-            body="Pour voir ou valider la ferme : " + admin_change_url,
-            from_email="paris.antoine.paris@gmail.com",
-            to=["antoine.paris@uclouvain.be"],
-        )
+        context = {
+            "new_farm": new_farm,
+            "admin_change_url": admin_change_url,
+        }
 
-        email.send()
+        send_email(["antoine.paris@uclouvain.be"],
+                   "Nouvelle ferme : " + new_farm.name + " à " + new_farm.municipality.name,
+                   "new_farm",
+                   context)
 
         return super(FarmCreateView, self).form_valid(form)
 
@@ -182,14 +181,26 @@ class FarmUpdateView(generic.UpdateView):
         admin_change_url = self.request.build_absolute_uri(reverse("admin:census_farm_change",
                                                                    args=(modified_farm.id,)))
 
-        email = EmailMessage(
-            subject="Une ferme vient d'être modifiée !",
-            body="Pour voir la ferme : " + admin_change_url,
-            from_email="paris.antoine.paris@gmail.com",
-            to=["antoine.paris@uclouvain.be"],
-        )
+        diff = dict()
+        if form.has_changed():
+            changed_data = form.changed_data
 
-        email.send()
+            for field in changed_data:
+                diff[field] = {
+                    'old': form.initial[field],
+                    'new': form.cleaned_data[field],
+                }
+
+        context = {
+            'admin_change_url': admin_change_url,
+            'modified_farm': modified_farm,
+            'diff': diff,
+        }
+
+        send_email(["antoine.paris@uclouvain.be"],
+                   "Ferme modifiée : " + modified_farm.name + " à " + modified_farm.municipality.name,
+                   "farm_updated",
+                   context)
 
         messages.success(self.request,"Modifications enregistrées !")
 

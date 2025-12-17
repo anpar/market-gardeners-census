@@ -1,0 +1,15 @@
+{% extends "census/mails/base_mail.html" %}
+
+{% block content %}
+La ferme "{{ modified_farm.name }} à {{ modified_farm.municipality.name }} a été modifiée.
+
+Changements :
+{% for name, d in diff.items %}
+    * {{ name }} : {{ d.old }} -> {{ d.new }}
+{% endfor %}
+
+Pour voir cette ferme, suivez ce lien : {{ admin_change_url }}
+
+{% endblock content %}
+
+{% block footer %}{% endblock %}

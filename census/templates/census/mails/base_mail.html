@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+	{% block content %}{% endblock %}
+
+	{% block footer %}
+	<hr>
+
+	<p>
+		<b>Antoine Paris</b>, assistant d'enseignement et doctorant<br>
+		Earth and Life Institute - Agronomie, UCLouvain<br>
+		<a href="mailto:antoine.paris@uclouvain.be">antoine.paris@uclouvain.be</a> - <a href="tel:+32494447752">0494/44.77.52</a><br>
+		ELIA, Croix du Sud 2/L7.05.11, Kellner D279<br>
+		1348 Louvain-la-Neuve<br><br>
+	</p>
+	{% endblock footer %}
+</body>
+</html>

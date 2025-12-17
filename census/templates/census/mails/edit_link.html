@@ -1,0 +1,15 @@
+{% extends "census/mails/base_mail.html" %}
+
+{% block content %}
+	<p>Bonjour,</p>
+
+	<p>
+		Pour modifier les informations de votre ferme, cliquez <a href="{{ url }}">ici</a>.
+	</p>
+	<p>
+		Ce lien unique est valable pendant 24 heures.
+	</p>
+	<p>
+		Merci pour votre contribution au recensement !
+	</p>
+{% endblock content %}

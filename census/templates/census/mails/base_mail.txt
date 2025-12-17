@@ -1,0 +1,11 @@
+{% block content %}{% endblock %}
+
+{% block footer %}
+---
+Antoine Paris, assistant d'enseignement et doctorant
+Earth and Life Institute - Agronomie, UCLouvain
+antoine.paris@uclouvain.be - 0494/44.77.52
+ELIA, Croix du Sud 2/L7.05.11, Kellner D279
+1348 Louvain-la-Neuve
+
+{% endblock footer %}

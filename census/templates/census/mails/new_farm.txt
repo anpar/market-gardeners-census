@@ -1,0 +1,9 @@
+{% extends "census/mails/base_mail.txt" %}
+
+{% block content %}
+Une nouvelle ferme ({{ new_farm.name }}, à {{ new_farm.municipality.name }}) a été ajoutée sur la plateforme.
+
+Pour voir et valider cette ferme, suivez-ce lien : {{ admin_change_url }}.
+{% endblock content %}
+
+{% block footer %}{% endblock %}

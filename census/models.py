@@ -318,7 +318,6 @@ class ExpiringUniqueEditLink(models.Model):
     token = models.CharField(max_length=120, null=False, unique=True,
                              verbose_name="Token d'accès unique")
 
-    # TODO: check it its works whatever timezone
     expiration_date = models.DateTimeField(null=False, verbose_name="Date d'expiration")
 
     @classmethod

@@ -1,0 +1,28 @@
+{% extends "census/mails/base_mail.html" %}
+
+{% block content %}
+	<p>Bonjour,</p>
+
+	<p>
+		Dans le cadre de ma thèse à l'UCLouvain dédiée au maraîchage diversifié, je lance une
+		<a href="{{ home_url }}">plateforme de recensement des fermes maraîchères diversifiées</a>
+		en Wallonie et à Bruxelles. L'objectif est de mener une campagne annuelle pour collecter des données
+		<i>de base</i> sur le maraîchage diversifié (nombre de fermes, surface cultivée, nombre d'équivalents
+		temps plein, etc.
+	</p>
+	<p>
+		Dans ce contexte, j'ai identifié votre ferme : {{ farm.name }}, dans la commune de {{ farm.municipality.name }}.
+	</p>
+	<p>
+		Accepteriez-vous de <a href="{{ unique_edit_url }}">valider et compléter les données liées à votre ferme sur
+		la plateforme</a> ? <b>Cela ne vous prendra que 2 minutes</b> et contribuerait grandement à la qualité
+		du recensement. C'est aussi <b>l'occasion de donner votre avis sur la recherche scientifique sur le
+		maraîchage diversifié</b>.
+	</p>
+	<p>
+		Merci d'avance pour votre contribution au recensement !
+	</p>
+	<p>
+		N'hésitez pas à me contacter pour toute question, suggestion ou remarque,
+	</p>
+{% endblock content %}
