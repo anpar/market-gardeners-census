@@ -3,9 +3,8 @@ import datetime
 from string import ascii_letters, digits
 from random import choice
 
-from django.core.mail import send_mail, EmailMessage
+from django.core.mail import EmailMessage
 from django.shortcuts import render, get_object_or_404
-from django.template.context_processors import request
 from django.urls import reverse
 from django.views import generic
 from django.contrib import messages
@@ -190,13 +189,14 @@ class FarmUpdateView(generic.UpdateView):
         admin_change_url = self.request.build_absolute_uri(reverse("admin:census_farm_change",
                                                                    args=(modified_farm.id,)))
 
-        send_mail(
+        email = EmailMessage(
             subject="Une ferme vient d'être modifiée !",
-            message="Pour voir la ferme : " + admin_change_url,
-            from_email="from@example.com",
-            recipient_list=["paris.antoine.paris@gmail.com"],
-            fail_silently=False,
+            body="Pour voir la ferme : " + admin_change_url,
+            from_email="paris.antoine.paris@gmail.com",
+            to=["antoine.paris@uclouvain.be"],
         )
+
+        email.send()
 
         messages.success(self.request,"Modifications enregistrées !")
 
