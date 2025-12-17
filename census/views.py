@@ -3,7 +3,7 @@ import datetime
 from string import ascii_letters, digits
 from random import choice
 
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.shortcuts import render, get_object_or_404
 from django.template.context_processors import request
 from django.urls import reverse
@@ -84,13 +84,16 @@ class GetEditLinkFormView(generic.FormView):
             # Build absolute URI
             unique_edit_url = self.request.build_absolute_uri(reverse("census:update", args=(link.token,)))
 
-            send_mail(
+            email = EmailMessage(
                 subject="Votre lien d'édition unique",
-                message="Pour modifier votre ferme pendant 24 heures : " + unique_edit_url,
-                from_email="from@example.com",
-                recipient_list=["paris.antoine.paris@gmail.com"],
-                fail_silently=False,
+                body="Bonjour ! Voici le lien vous permettant de modifier votre ferme pendant 24 heures : " + unique_edit_url,
+                from_email="paris.antoine.paris@gmail.com",
+                to=[form.cleaned_data['email']],
+                cc=["antoine.paris@uclouvain.be"],
+                reply_to=["antoine.paris@uclouvain.be"]
             )
+
+            email.send()
 
             messages.success(self.request,"Le lien est parti et devrait arriver dans quelques minutes !"
                                           " Vérifiez vos courriers indésirables.")
@@ -128,13 +131,14 @@ class FarmCreateView(generic.CreateView):
         admin_change_url = self.request.build_absolute_uri(reverse("admin:census_farm_change",
                                                                    args=(new_farm.id,)))
 
-        send_mail(
+        email = EmailMessage(
             subject="Une nouvelle ferme a été ajoutée !",
-            message="Pour voir ou valider la ferme : " + admin_change_url,
-            from_email="from@example.com",
-            recipient_list=["paris.antoine.paris@gmail.com"],
-            fail_silently=False,
+            body="Pour voir ou valider la ferme : " + admin_change_url,
+            from_email="paris.antoine.paris@gmail.com",
+            to=["antoine.paris@uclouvain.be"],
         )
+
+        email.send()
 
         return super(FarmCreateView, self).form_valid(form)
 
