@@ -30,8 +30,6 @@
                   <th>Nom</th>
                   <th>Commune</th>
                   <th>Province</th>
-	                <th>Site web</th>
-	                <th>Page Facebook</th>
               </tr>
           </thead>
           <tbody>
@@ -40,16 +38,6 @@
 	                    <td><a href="{% url 'census:view' f.id %}">{{ f.name }}</a></td>
                       <td>{{ f.municipality }}</td>
                       <td>{{ f.municipality.province }}</td>
-                      <td>
-	                      {% if f.website %}
-	                        <a href="{{ f.website }}" target="_blank">{{ f.website|truncatechars:15 }}</a>
-	                      {% endif %}
-                      </td>
-                      <td>
-	                      {% if f.fb_page %}
-	                        <a href="{{ f.fb_page }}" target="_blank">{{ f.fb_page|truncatechars:15 }}</a>
-                        {% endif %}
-                      </td>
                   </tr>
               {% endfor %}
           </tbody>
