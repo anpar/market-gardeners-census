@@ -4,6 +4,12 @@ from django.db.models import Q
 
 from phonenumber_field.modelfields import PhoneNumberField
 
+from django.utils import timezone
+
+from string import ascii_letters, digits
+from random import choice
+
+import datetime
 
 class Municipality(models.Model):
     class Meta:
@@ -314,6 +320,14 @@ class ExpiringUniqueEditLink(models.Model):
 
     # TODO: check it its works whatever timezone
     expiration_date = models.DateTimeField(null=False, verbose_name="Date d'expiration")
+
+    @classmethod
+    def create(cls, farm, days=1):
+        link = cls(farm=farm)
+        link.token = ''.join(choice(ascii_letters + digits) for i in range(60))
+        link.expiration_date = timezone.now() + datetime.timedelta(days=days)
+
+        return link
 
     def __str__(self):
         return self.farm.name

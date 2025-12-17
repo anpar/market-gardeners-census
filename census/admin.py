@@ -4,7 +4,10 @@ from import_export.widgets import ForeignKeyWidget
 from census.models import Municipality, Farm, MarketGardener, OtherLinks, ExpiringUniqueEditLink
 
 from import_export import fields, resources
-from import_export.admin import ImportExportModelAdmin, logger
+from import_export.admin import ImportExportModelAdmin
+
+from django.urls import reverse
+from django.core.mail import EmailMessage
 
 admin.site.site_header = 'Administration'
 
@@ -89,13 +92,37 @@ def mark_staff(modeladmin, request, queryset):
 def mark_user(modeladmin, request, queryset):
     queryset.update(added_by="User")
 
+@admin.action(description="Contacter pour mise à jour")
+def create_edit_link(modeladmin, request, queryset):
+    for farm in queryset:
+        # Delete existing link pointing to the same farm (if any)
+        ExpiringUniqueEditLink.objects.filter(farm=farm).delete()
+
+        # Create a new expiring unique edit link
+        link = ExpiringUniqueEditLink.create(farm=farm, days=1)
+        link.save()
+
+        unique_edit_url = request.build_absolute_uri(reverse("census:update", args=(link.token,)))
+
+        email = EmailMessage(
+            subject="Votre lien d'édition unique",
+            body="Bonjour ! Voici le lien vous permettant de modifier votre ferme pendant 24 heures : " + unique_edit_url,
+            from_email="paris.antoine.paris@gmail.com",
+            to=farm.email_list(),
+            cc=["antoine.paris@uclouvain.be"],
+            reply_to=["antoine.paris@uclouvain.be"]
+        )
+
+        email.send()
+
+
 class FarmAdmin(ImportExportModelAdmin):
     list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'production', 'flagged',
                     'is_active', 'public', 'consent_display', 'email', 'phone', 'added_by', 'edited_by_user',
                     'last_update')
     ordering = ['name']
     search_fields = ['name']
-    actions = [make_public, hide, mark_staff, mark_user]
+    actions = [make_public, hide, mark_staff, mark_user, create_edit_link]
     list_per_page = 500
 
     fieldsets = [
