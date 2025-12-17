@@ -24,12 +24,13 @@
 		<hr class="my-4">
 
 		<div class="text-center mt-4 mb-4">
-			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="brabant-wallon">Brabant wallon</button>
-			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="hainaut">Hainaut</button>
-			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="namur">Namur</button>
-			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="liège">Liège</button>
-			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="luxembourg">Luxembourg</button>
-			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="bruxelles,.brabant-flamand">Bruxelles <small>(et communes à facilités)</small></button>
+			<!-- The data-filter attribute corresponds to the className of the circles on the Map -->
+			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".brabant-wallon">Brabant wallon</button>
+			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".hainaut">Hainaut</button>
+			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".namur">Namur</button>
+			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".liège">Liège</button>
+			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".luxembourg">Luxembourg</button>
+			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".bruxelles,.brabant-flamand">Bruxelles <small>(et communes à facilités)</small></button>
 			<button type="button" class="btn btn-secondary active mt-1" onClick="filterProvince(this)" data-filter="all">Tout afficher</button>
 		</div>
 
@@ -51,17 +52,19 @@
 	    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 		}).addTo(map);
 
+		let coord, circle;
+
 		{% for m in municipalities %}
-			var coord = '{{ m.GPS_coordinates }}'.split(", ")
+			coord = '{{ m.GPS_coordinates }}'.split(", ")
 
 			{% if m.farm_set.values %}
-				//var marker = L.marker([coord[0], coord[1]]).addTo(map);
-				var circle = L.circle([coord[0], coord[1]], {
+				circle = L.circle([coord[0], coord[1]], {
 					color: 'blue',
 					opacity: 1.0,
 					fillColor: 'blue',
 					fillOpacity: 0.65,
 					radius: 1000 * Math.sqrt({{ m.farm_set.values|length }}),
+					// The className allows filtering by province
 					className: '{{ m.province }}'.replace(/\s+/g, '-').toLowerCase()
 				}).addTo(map);
 
@@ -70,12 +73,13 @@
 												+"<a href={% url 'census:view' f.id %}>{{ f.name }}</a>"
 												+"</li>{% endif %}{% endfor %}</ul>")
 			{% else %}
-				var circle = L.circle([coord[0], coord[1]], {
+				circle = L.circle([coord[0], coord[1]], {
 					color: 'gray',
 					opacity: 1.0,
 					fillColor: 'gray',
 					fillOpacity: 0.75,
 					radius: 1000,
+					// The className allows filtering by province
 					className: '{{ m.province }}'.replace(/\s+/g, '-').toLowerCase()
 				}).addTo(map);
 				circle.bindPopup('<p><b>{{ m.name }}</b> : pas de ferme maraîchère diversifiée recensée dans cette commune.</p>'
@@ -106,7 +110,7 @@
 		}).addTo(map);
 
 		function filterProvince(btn) {
-			var data_filter = btn.getAttribute('data-filter');
+			const data_filter = btn.getAttribute('data-filter');
 
 			if (data_filter === 'all') {
 				[].forEach.call(document.getElementsByClassName('leaflet-interactive'), function (el) {
@@ -117,7 +121,7 @@
 					el.style.visibility = 'visible';
 				});
 
-				[].forEach.call(document.querySelectorAll('path.leaflet-interactive:not(.' + data_filter + ')'), function (el) {
+				[].forEach.call(document.querySelectorAll('path.leaflet-interactive:not(' + data_filter + ')'), function (el) {
 					el.style.visibility = 'hidden';
 				});
 			}
