@@ -109,6 +109,10 @@ class Farm(models.Model):
                                                "liées au maraîchage diversifié.",
                                   help_text="Cela n'engage à rien d'autre qu'à peut-être un jour être contacté·e.")
 
+    cgu_consent = models.BooleanField(blank=False,
+                                      default=False,
+                                      verbose_name="CGU")
+
     @admin.display(boolean=True, description="Contact ?", ordering="consent")
     def consent_display(self):
         return self.consent

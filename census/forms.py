@@ -1,6 +1,8 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 from django.forms import ModelForm
+from django.forms.utils import ErrorList
 
 from .models import Farm, MarketGardener
 
@@ -26,24 +28,6 @@ class FarmForm(ModelForm):
         model = Farm
         exclude = ['comment', 'last_update', 'flagged', 'edited_by_user', 'added_by', 'public']
 
-        # labels (verbose_name in the model) and help_texts can be overridden too, but better change it directly in the model
-        error_messages ={
-            'email' : {
-                'unique': "Une ferme maraîchère avec cette adresse e-mail existe déjà."
-            },
-            'phone' : {
-                'invalid': "Veuillez indiquer un numéro de téléphone valide (GSM ou fixe).",
-                'unique': "Une ferme maraîchère avec ce numéro de téléphone existe déjà."
-            },
-            'website' : {
-                'unique': "Une ferme maraîchère avec ce site web existe déjà."
-            },
-            'fb_page' : {
-                'unique': "Une ferme maraîchère avec cette page Facebook existe déjà."
-            }
-
-        }
-
     # Replace class attribute of form fields with form-control/form-select for proper styling with Bootstrap 5
     def __init__(self, *args, **kwargs):
         super(FarmForm, self).__init__(*args, **kwargs)
@@ -58,8 +42,13 @@ class FarmForm(ModelForm):
                 if visible.widget_type == 'textarea':
                     visible.field.widget.attrs['rows'] = '5'
 
-            if visible.name == 'GPS_coordinates':
-                visible.field.widget.attrs['placeholder'] = '50.66677974362429, 4.620421360598303'
+    def clean(self):
+        cleaned_data = super(FarmForm, self).clean()
+        cgu_consent = cleaned_data.get('cgu_consent')
+
+        if not cgu_consent:
+            raise ValidationError("Vous devez accepter les conditions générales d'utilisation.")
+
 
 class MarketGardenerForm(ModelForm):
     class Meta:
