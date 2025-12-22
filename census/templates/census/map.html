@@ -70,7 +70,8 @@
 
 				circle.bindPopup("<b>{{ m.name }}</b> :"
 												+"<ul>{% for f in m.farm_set.values %}{% if f.public %}<li>"
-												+"<a href={% url 'census:view' f.id %}>{{ f.name }}</a>"
+												+"<a href={% url 'census:view' f.id %}>{{ f.name }}</a>&nbsp;"
+												+ '{% if f.fb_page %} <a class="link-underline link-underline-opacity-0"href="{{ f.fb_page }}"target=_blank><svg class="bi bi-facebook"fill=currentColor height=14 viewBox="0 0 16 16"width=14 xmlns=http://www.w3.org/2000/svg><path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/></svg> </a>{% endif %}{% if f.website %} <a class="link-underline link-underline-opacity-0"href="{{ f.website }}"target=_blank><svg class="bi bi-link-45deg"fill=currentColor height=16 viewBox="0 0 16 16"width=16 xmlns=http://www.w3.org/2000/svg><path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/><path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/></svg></a>{% endif %}'
 												+"</li>{% endif %}{% endfor %}</ul>")
 			{% else %}
 				circle = L.circle([coord[0], coord[1]], {
@@ -116,6 +117,8 @@
 				[].forEach.call(document.getElementsByClassName('leaflet-interactive'), function (el) {
 					el.style.visibility = 'visible';
 				});
+
+				map.setView([50.220, 4.911], 8);
 			} else {
 				[].forEach.call(document.getElementsByClassName('leaflet-interactive'), function (el) {
 					el.style.visibility = 'visible';

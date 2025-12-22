@@ -13,7 +13,7 @@
 
 			<hr class="my-4">
 
-			{% if not form.errors %}
+			{% if not form.errors and not messages %}
 				<p class="alert alert-info">
 					Seuls trois champs (indiqués en <b>gras</b> avec une <b>*</b>) sont obligatoires.
 				</p>

@@ -94,6 +94,8 @@ class GetEditLinkFormView(generic.FormView):
         return super(GetEditLinkFormView, self).form_valid(form)
 
 class FarmView(View):
+    context_object_name = "farm"
+
     def get(self, request, *args, **kwargs):
         view = FarmUpdatePreviewView.as_view()
         return view(request, *args, **kwargs)

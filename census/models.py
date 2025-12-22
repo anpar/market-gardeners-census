@@ -127,7 +127,7 @@ class Farm(models.Model):
                                null=True,
                                verbose_name="Surface dédiée à la production de légumes (en ha)")
 
-    @admin.display(description="Surface (ha)")
+    @admin.display(description="Surface (ha)", ordering="area")
     def area_display(self):
         return self.area
 
@@ -139,7 +139,7 @@ class Farm(models.Model):
                               verbose_name="Nombre d'équivalents temps plein rémunérés",
                               help_text="")
 
-    @admin.display(description="ETPr")
+    @admin.display(description="ETPr", ordering="FTE")
     def fte_display(self):
         return self.FTE
 
