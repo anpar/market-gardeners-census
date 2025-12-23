@@ -52,9 +52,17 @@
     </div>
     <div class="col">
 	    <h4>Citoyen·nes</h4>
+	    <!-- TODO: un peu crade comme façon d'aligner les choses -->
+	    <p class="lead">
+		    &nbsp;
+	    </p>
 	    <p>
-				Si vos maraîcher·ères préféré·es ne se trouvent pas dans la <a href="{% url 'census:listing' %}">la liste</a>
-		    ou sur <a href="{% url 'census:map' %}">la carte</a>, <a href="#contact">contactez-nous</a>&nbsp;!
+		    <span class="badge rounded-pill text-bg-success">1</span> Si vous cherchez un·e maraîcher·ères pour vous approvisionner
+		    localement en légumes frais, consultez <a href="{% url 'census:listing' %}">la liste</a> ou
+		    <a href="{% url 'census:map' %}">la carte</a> pour en trouver dans votre commune&nbsp;!
+        <span class="badge rounded-pill text-bg-success">2</span> Si vos maraîcher·ères préféré·es ne se trouvent pas dans
+		    la <a href="{% url 'census:listing' %}">la liste</a> ou sur <a href="{% url 'census:map' %}">la carte</a>,
+		    <a href="#contact">contactez-nous</a>&nbsp;!
 			</p>
     </div>
   </div>
@@ -107,8 +115,8 @@
       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
         <div class="accordion-body">
           <p>
-						Seules les informations affichées dans <a href="{% url 'census:listing' %}">la liste</a> (nom de la ferme,
-	          commune, site web et page Facebook) sont publiquement accessibles sur la plateforme. Toutes les autres
+						Seules les informations affichées dans <a href="{% url 'census:listing' %}">la liste</a> (nom,
+	          commune, site web et page Facebook de la ferme) sont publiquement accessibles sur la plateforme. Toutes les autres
 	          informations resteront <b>privées</b> et ne seront jamais utilisées associées à votre nom sans votre
 	          consentement.
           </p>
@@ -121,6 +129,44 @@
 		        Si vous l'acceptez (en cochant la case correspondante dans le formulaire d'ajout/d'édition de votre ferme),
 		        votre adresse e-mail et/ou votre numéro de téléphone pourront être utilisés par l'UCLouvain pour vous
 		        contacter pour des questions liées à la recherche.
+	        </p>
+        </div>
+      </div>
+    </div>
+		<div class="accordion-item">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                aria-expanded="false" aria-controls="collapseFour">
+	        N'existe-t-il pas déjà d'autres plateformes similaires listant des maraîcher·ères&nbsp;?
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour">
+        <div class="accordion-body">
+	        <p>
+		        Il existe effectivement différentes listes de maraîcher·ères éparpillées sur internet :
+		        <a href="https://agriculture-csa.be/" target="_blank">agriculture-csa.be</a>,
+		        <a href="https://www.google.com/maps/d/viewer?mid=1dqfkplTbh_Dqsth2Ys8ZGklQIvQCyphg&femb=1&ll=50.590984661390316%2C5.910021414637132&z=9" target="_blank">
+			        les maraîcher·ères de la province de Liège</a>,
+		        <a href="https://www.google.com/maps/d/viewer?mid=1Vw0ZmRH7ajOjg0jedEU1w9mi2Tlyp8aQ&femb=1&ll=50.678465790980454%2C3.7888259233665345&z=10" target="_blank">
+			        la ceinture alimentaire Tournaisis</a>,
+		        <a href="https://www.ceinturealimentaire.be/producteurs/tous-les-producteurs" target="_blank">
+			        la ceinture alimentaire Charleroi Métropole</a>,
+		        <a href="https://www.legumeswallons.be/producteurs" target="_blank">
+			        les producteurs membres du CIM</a>,
+		        <a href="https://www.biowallonie.com/acteursbio/" target="_blank">
+			        les acteurs et actrices du bio de Biowallonie</a>,
+		        etc.
+	        </p>
+
+	        <p>
+		        Ces listes ont d'ailleurs servi de base au recensement des fermes maraîchères diversifiées présent sur cette
+		        plateforme.
+	        </p>
+
+	        <p>
+		        Néanmoins, aucune de ces listes n'a la volonté d'être exhaustive et peu sont maintenues à jour. Elles ne
+		        permettent pas non plus - contrairement à cette plateforme - de recueillir des données supplémentaires
+		        pertinentes pour l'étude du secteur.
 	        </p>
         </div>
       </div>
