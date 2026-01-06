@@ -9,7 +9,11 @@
 			<a class="btn btn-sm btn-success" href="{% url 'census:create' %}">Ajouter votre ferme</a>
 		</p>
 		<p class="alert alert-info" role="alert">
-				Vous voulez corriger ou mettre à jour les données de votre ferme ? Cliquez sur son nom dans la liste.
+				Cliquez sur
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+					<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+				</svg>
+				à côté du nom de votre ferme pour corriger ou mettre à jour les données de votre ferme.
 		</p>
 
 		<hr class="my-4">
@@ -24,46 +28,55 @@
 				<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter="Bruxelles|(Brabant flamand)">Bruxelles <small>(et communes à facilités)</small></button>
 				<button type="button" class="btn btn-secondary active mt-1" onClick="filterProvince(this)" data-filter="">Tout afficher</button>
 			</div>
+
       <table id="farm-list" class="table table-striped">
-          <thead>
-              <tr>
-                  <th>Nom</th>
-                  <th>Commune</th>
-                  <th>Province</th>
-	                <th>Liens</th>
-              </tr>
-          </thead>
-          <tbody>
-              {% for f in farms %}
-                  <tr>
-	                    <td>
-		                    <a href="{% url 'census:view' f.id %}">
-		                      {{ f.name }}
-		                    </a>
-	                    </td>
-                      <td>{{ f.municipality }}</td>
-                      <td>{{ f.municipality.province }}</td>
-                      <td>
-	                      {% if f.fb_page %}
-													<a href="{{ f.fb_page }}" target="_blank" class="link-underline link-underline-opacity-0">
-														<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
-												      <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
-														</svg>
-													</a>
-												{% endif %}
-                        &nbsp;
-												{% if f.website %}
-													<a href="{{ f.website }}" target="_blank" class="link-underline link-underline-opacity-0">
-														<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
-										          <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
-										          <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
-														</svg>
-													</a>
-												{% endif %}
-                      </td>
-                  </tr>
-              {% endfor %}
-          </tbody>
+        <thead>
+          <tr>
+            <th>
+                Nom de la ferme
+                <span style="font-weight: normal !important; font-size: smaller;">(cliquez sur
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+									<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+								</svg> pour modifier)</span>
+            </th>
+            <th>Liens</th>
+            <th>Commune</th>
+            <th>Province</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for f in farms %}
+            <tr>
+              <td>
+                <a href="{% url 'census:view' f.id %}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+									</svg></a>
+                {{ f.name }}
+              </td>
+              <td>
+                {% if f.fb_page %}
+									<a href="{{ f.fb_page }}" target="_blank" class="link-underline link-underline-opacity-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+								      <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+										</svg>
+									</a>
+								{% endif %}
+                &nbsp;
+								{% if f.website %}
+									<a href="{{ f.website }}" target="_blank" class="link-underline link-underline-opacity-0">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
+						          <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
+						          <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
+										</svg>
+									</a>
+								{% endif %}
+              </td>
+              <td>{{ f.municipality }}</td>
+              <td>{{ f.municipality.province }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
       </table>
 		{% else %}
 	    <p class="alert alert-danger" role="alert">
@@ -75,7 +88,7 @@
 {% endblock content %}
 
 {% block script %}
-<!-- TODO: passer cela en local pour gagner du temps de chargement ? -->
+
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/2.3.5/js/dataTables.js"></script>
 
@@ -85,14 +98,14 @@
 		searching: true,
 		scrollCollapse: true,
     scrollY: '350px',
-		order: [[1, 'asc']],
+		order: [[0, 'asc']],
 		language: {
         url: 'https://cdn.datatables.net/plug-ins/2.3.5/i18n/fr-FR.json',
     },
 	})
 
 	function filterProvince(btn) {
-		table.column(2).search(btn.getAttribute('data-filter'), true).draw()
+		table.column(3).search(btn.getAttribute('data-filter'), true).draw()
 		let buttons = document.getElementsByTagName('button')
 		for (var i = 0; i < buttons.length; i++) {
 			buttons[i].classList.remove('active')

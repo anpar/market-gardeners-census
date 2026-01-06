@@ -89,7 +89,7 @@ class GetEditLinkFormView(generic.FormView):
                                           " Vérifiez vos courriers indésirables.")
         else:
             messages.error(self.request,"L'adresse e-mail indiquée ne correspond pas à celle(s) se trouvant"
-                                        " dans notre base données.")
+                                        " dans notre base de données.")
 
         return super(GetEditLinkFormView, self).form_valid(form)
 
