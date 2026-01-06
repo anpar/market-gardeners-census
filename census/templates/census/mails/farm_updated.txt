@@ -1,7 +1,7 @@
 {% extends "census/mails/base_mail.html" %}
 
 {% block content %}
-La ferme "{{ modified_farm.name }} à {{ modified_farm.municipality.name }} a été modifiée.
+La ferme "{{ modified_farm.name }}" à {{ modified_farm.municipality.name }} a été modifiée.
 
 Changements :
 {% for name, d in diff.items %}

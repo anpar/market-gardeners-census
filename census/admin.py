@@ -113,7 +113,7 @@ def campaign(modeladmin, request, queryset):
         }
 
         send_email(farm.email_list(),
-                   "LE recensement du maraîchage diversifié",
+                   "Le recensement du maraîchage diversifié",
                    "campaign",
                    context)
 

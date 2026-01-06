@@ -1,27 +1,36 @@
 {% extends "census/mails/base_mail.html" %}
 
 {% block content %}
-	<p>Bonjour,</p>
+	<p>Cher·ère maraîcher·ère,</p>
 
 	<p>
-		Dans le cadre de ma thèse à l'UCLouvain dédiée au <b>maraîchage diversifié</b>, je lance une
+		Dans le cadre de ma thèse à l'UCLouvain dédiée au <b>maraîchage diversifié</b>, une
 		<a href="{{ home_url }}">plateforme de recensement des fermes maraîchères diversifiées</a>
-		en Wallonie et à Bruxelles. Parce que aujourd'hui, on ne sait pas vraiment combien de maraîcher·ères
-		diversifié·es produisent des légumes, sur quelle surface, etc. L'objectif de cette plateforme est donc
-		de combler ce manque ! Vous trouverez plus d'informations dans <a href="{{ home_url }}#faq">la FAQ</a>.
+		situées en Wallonie et à Bruxelles vient d'être créée. Vous trouverez plus d'informations
+		sur les objectifs de ce recensement dans <a href="{{ home_url }}#faq">la FAQ</a>.
 	</p>
+
 	<p>
-		Dans ce contexte, j'ai identifié votre ferme : {{ farm.name }}, dans la commune de {{ farm.municipality.name }}.
+		Dans ce contexte, j'ai identifié votre ferme : <b>{{ farm.name }}</b>, dans la commune de <i>{{ farm.municipality.name }}</i>.
 	</p>
+
 	<p>
 		Accepteriez-vous de <b>valider</b> et <b>compléter</b> les données liées à votre ferme sur
 		la plateforme ? <b>Cela ne vous prendra que 2 minutes</b> et contribuerait grandement à la qualité
 		du recensement. C'est aussi l'occasion de donner votre avis sur ce que devraient être <b>les priorités de la
-		recherche</b> scientifique sur le maraîchage diversifié. Cela se passe par <a href="{{ unique_edit_url }}">ici</a>.
+		recherche</b> scientifique sur le maraîchage diversifié.
 	</p>
+
+	<div style="text-align: center;">
+		<button role="button" style="background-color: #0d6efd; font-size: 16px; text-align: center; border-radius: 5px; padding: 10px; border-color: #0d6efd; border-style: solid;">
+			<a href="{{ unique_edit_url }}" style="color: white; text-decoration: none;">Valider et compléter mes données</a>
+		</button>
+	</div>
+
 	<p>
 		Merci d'avance pour votre contribution au recensement !
 	</p>
+
 	<p>
 		N'hésitez pas à me contacter pour toute question, suggestion ou remarque,
 	</p>

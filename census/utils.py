@@ -19,7 +19,7 @@ def send_email(to, subject, template, context):
     email = EmailMultiAlternatives(
         subject=subject,
         body=text_content,
-        from_email="Recensement maraîchage diversifié <recensement@maraichage-wallonie.be>",
+        from_email="Antoine Paris <recensement@maraichage-wallonie.be>",
         to=to,
         cc=cc,
     )
