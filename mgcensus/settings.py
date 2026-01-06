@@ -132,13 +132,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# TODO: fix password storage + send with web host mail server
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'mail.infomaniak.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'paris.antoine.paris@gmail.com'
-EMAIL_HOST_PASSWORD = 'lxsnhfngjwzgkmxb'
-
-# TODO: https://stackoverflow.com/questions/433162/can-i-access-constants-in-settings-py-from-templates-in-django
-CONTACT_EMAIL = 'antoine.paris@uclouvain.be'
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")

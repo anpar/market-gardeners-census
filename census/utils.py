@@ -19,11 +19,9 @@ def send_email(to, subject, template, context):
     email = EmailMultiAlternatives(
         subject=subject,
         body=text_content,
-        from_email="paris.antoine.paris@gmail.com",
+        from_email="Recensement maraîchage diversifié <recensement@maraichage-wallonie.be>",
         to=to,
         cc=cc,
-        reply_to=["antoine.paris@uclouvain.be"],
-        headers={"List-Unsubscribe": "<mailto:antoine.paris@uclouvain.be>"},
     )
 
     email.attach_alternative(html_content, "text/html")
