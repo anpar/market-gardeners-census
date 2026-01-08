@@ -1,5 +1,13 @@
 {% extends "census/base.html" %}
 
+{% block title %}
+	{% if farm %}
+		{{ farm.name }}, à {{ farm.municipality.name }}
+	{% else %}
+
+	{% endif %}
+{% endblock title %}
+
 {% block content %}
 
 {% if farm %}
