@@ -101,11 +101,14 @@
 		paging: false,
 		searching: true,
 		scrollCollapse: true,
-    scrollY: '350px',
+    //scrollY: '350px',
 		order: [[0, 'asc']],
 		language: {
         url: 'https://cdn.datatables.net/plug-ins/2.3.5/i18n/fr-FR.json',
     },
+		"columnDefs": [
+            { "orderable": false, "targets": [1] }  // Disable sorting on column 1
+        ]
 	})
 
 	function filterProvince(btn) {
