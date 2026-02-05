@@ -189,10 +189,6 @@ class Farm(models.Model):
                                      default=None,
                                      verbose_name="Intégrez-vous des couverts végétaux dans votre rotation ?")
 
-    @admin.display(description="CV")
-    def end_year_display(self):
-        return self.cover_crop
-
     # FIXME: ou un MultipleChoiceField avec plusieurs choix ? https://docs.djangoproject.com/en/6.0/ref/forms/fields/#multiplechoicefield
     why_no_cover_crop = models.TextField(blank=True,
                                          verbose_name="Si vous n'intégrez <b>pas</b> de couverts végétaux dans votre rotation, "
@@ -201,10 +197,6 @@ class Farm(models.Model):
                                                    "rotation trop dense, pas assez d'espace, pas le temps, manque de références "
                                                    "techniques suffisamment solides, manque d'équipement adapté (semis ou "
                                                    "destruction des couverts), coût des semences, etc.")
-
-    @admin.display(description="CV : non")
-    def end_year_display(self):
-        return self.why_no_cover_crop
 
     """
         DIVERS

@@ -119,7 +119,6 @@ def campaign(modeladmin, request, queryset):
 
 class FarmAdmin(ImportExportModelAdmin):
     list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'production',
-                    'cover_crop', 'why_no_cover_crop',
                     'flagged', 'is_active', 'public', 'consent_display', 'email', 'phone', 'added_by',
                     'edited_by_user', 'last_update')
     ordering = ['name']
