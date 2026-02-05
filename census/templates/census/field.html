@@ -2,7 +2,8 @@
 	{% if field.field.required %}
 		<b>{{ field.label }} <small>*</small></b>
 	{% else %}
-		{{ field.label }}
+		<!-- | safe avoids HTML escaping here -->
+		{{ field.label | safe }}
 	{% endif %}
 </label>
 

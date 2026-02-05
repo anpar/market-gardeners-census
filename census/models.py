@@ -125,7 +125,7 @@ class Farm(models.Model):
                                max_digits=4,
                                blank=True,
                                null=True,
-                               verbose_name="Surface dédiée à la production de légumes (en ha)")
+                               verbose_name="Surface dédiée à la production de légumes (en <b>ha</b>)")
 
     @admin.display(description="Surface (ha)", ordering="area")
     def area_display(self):
@@ -164,18 +164,47 @@ class Farm(models.Model):
 
     end_year = models.IntegerField(blank=True,
                                    null=True,
-                                   verbose_name="Année de fin d'activité (le cas échéant)",
+                                   verbose_name="Année de <b>fin</b> d'activité (le cas échéant)",
                                    help_text="Laisser vide si le projet est toujours actif.")
 
     @admin.display(description="Fin")
     def end_year_display(self):
         return self.end_year
 
-    # TODO: help_text
     research_priorities = models.TextField(blank=True,
                                            verbose_name="Selon vous, quelles devraient être les priorités "
                                                         "de la recherche sur le maraîchage ?",
-                                           help_text="")
+                                           help_text="À quels problèmes êtes vous confronté·es ? Qu'aimeriez-vous "
+                                                     "améliorer ? Quels sont vos besoins ? Qu'est-ce qui vous serait "
+                                                     "utile ?")
+
+    COVER_CROP = {
+        None: "/",
+        True: "Oui",
+        False: "Non",
+    }
+
+    cover_crop = models.BooleanField(choices=COVER_CROP,
+                                     null=True,
+                                     default=None,
+                                     verbose_name="Intégrez-vous des couverts végétaux dans votre rotation ?")
+
+    @admin.display(description="CV")
+    def end_year_display(self):
+        return self.cover_crop
+
+    # FIXME: ou un MultipleChoiceField avec plusieurs choix ? https://docs.djangoproject.com/en/6.0/ref/forms/fields/#multiplechoicefield
+    why_no_cover_crop = models.TextField(blank=True,
+                                         verbose_name="Si vous n'intégrez <b>pas</b> de couverts végétaux dans votre rotation, "
+                                                      "pour quelle(s) raison(s) ?",
+                                         help_text="Par exemple : perte de rentabilité par rapport à une culture de légume, "
+                                                   "rotation trop dense, pas assez d'espace, pas le temps, manque de références "
+                                                   "techniques suffisamment solides, manque d'équipement adapté (semis ou "
+                                                   "destruction des couverts), coût des semences, etc.")
+
+    @admin.display(description="CV : non")
+    def end_year_display(self):
+        return self.why_no_cover_crop
 
     """
         DIVERS
