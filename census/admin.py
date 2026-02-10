@@ -8,6 +8,8 @@ from import_export.admin import ImportExportModelAdmin
 
 from django.urls import reverse
 
+from django.db import models
+
 from census.utils import send_email
 
 admin.site.site_header = 'Administration'
@@ -125,6 +127,15 @@ class FarmAdmin(ImportExportModelAdmin):
     search_fields = ['name']
     actions = [make_public, hide, mark_staff, mark_user, campaign]
     list_per_page = 500
+
+    # This is ignored for fields that have 'choices', see : https://github.com/django/django/pull/20559
+    #formfield_overrides = {
+    #    models.NullBooleanField: {'required': False},
+    #    models.BooleanField: {'required': False},
+    #}
+
+    # En attendant, en readonly pour éviter le "this field is mandatory" intempestif
+    readonly_fields = ('cover_crop',)
 
     fieldsets = [
         (None, {"fields": ["name"]}),
