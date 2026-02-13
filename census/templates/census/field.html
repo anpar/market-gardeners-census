@@ -19,6 +19,6 @@
 
 {% if field.help_text %}
 	<p class="form-text mb-0">
-		{{ field.help_text }}
+		{{ field.help_text | safe }}
 	</p>
 {% endif %}

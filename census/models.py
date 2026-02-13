@@ -50,8 +50,12 @@ class Municipality(models.Model):
 
 class Farm(models.Model):
 
+    # FIXME: the links in the help_text are hardcoded (instead of using {% url 'census:listing' %})
     name = models.CharField(max_length=250,
-                            verbose_name="Nom de la ferme")
+                            verbose_name="Nom de la ferme",
+                            help_text="Attention, vérifiez bien que votre ferme ne se trouve pas déjà dans la "
+                                      "<a href=\"../listing/\">liste</a> ou sur la "
+                                      "<a href=\"../map/\">carte</a>.")
 
     @admin.display(description="Nom", ordering="name")
     def name_display(self):
