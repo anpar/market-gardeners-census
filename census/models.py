@@ -73,7 +73,7 @@ class Farm(models.Model):
     address = models.CharField(max_length=250,
                                blank=True,
                                null=True,
-                               verbose_name="Adresse du lieu de production",
+                               verbose_name="Adresse du lieu de <u>production</u>",
                                help_text="Nom de la rue et numéro du lieu de production.")
 
     GPS_coordinates = models.CharField(max_length=40,
@@ -129,7 +129,9 @@ class Farm(models.Model):
                                max_digits=4,
                                blank=True,
                                null=True,
-                               verbose_name="Surface dédiée à la production de légumes (en <b>ha</b>)")
+                               verbose_name="Surface brute dédiée à la production de légumes (en <b>ha</b>)",
+                               help_text="Sans compter les éventuelles autres activités agricoles : élevage, verger, "
+                                         "petits fruits, etc.")
 
     @admin.display(description="Surface (ha)", ordering="area")
     def area_display(self):
@@ -140,8 +142,8 @@ class Farm(models.Model):
                               max_digits=4,
                               blank=True,
                               null=True,
-                              verbose_name="Nombre d'équivalents temps plein rémunérés",
-                              help_text="")
+                              verbose_name="Nombre d'équivalents temps plein <u>rémunérés</u>",
+                              help_text="Pour la production de légumes seulement.")
 
     @admin.display(description="ETPr", ordering="FTE")
     def fte_display(self):
