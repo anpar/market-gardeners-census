@@ -98,26 +98,28 @@ def mark_user(modeladmin, request, queryset):
 @admin.action(description="Lancer la campagne annuelle")
 def campaign(modeladmin, request, queryset):
     for farm in queryset:
-        # Delete existing link pointing to the same farm (if any)
-        ExpiringUniqueEditLink.objects.filter(farm=farm).delete()
+        # Only send to farm with no known end_year
+        if farm.end_year is None:
+            # Delete existing link pointing to the same farm (if any)
+            ExpiringUniqueEditLink.objects.filter(farm=farm).delete()
 
-        # Create a new expiring unique edit link, expiring in three weeks
-        link = ExpiringUniqueEditLink.create(farm=farm, days=21)
-        link.save()
+            # Create a new expiring unique edit link, expiring in three weeks
+            link = ExpiringUniqueEditLink.create(farm=farm, days=21)
+            link.save()
 
-        home_url = request.build_absolute_uri(reverse("census:index"))
-        unique_edit_url = request.build_absolute_uri(reverse("census:update", args=(link.token,)))
+            home_url = request.build_absolute_uri(reverse("census:index"))
+            unique_edit_url = request.build_absolute_uri(reverse("census:update", args=(link.token,)))
 
-        context = {
-            'farm': farm,
-            'home_url': home_url,
-            'unique_edit_url': unique_edit_url,
-        }
+            context = {
+                'farm': farm,
+                'home_url': home_url,
+                'unique_edit_url': unique_edit_url,
+            }
 
-        send_email(farm.email_list(),
-                   "Le recensement 2026 du maraîchage diversifié",
-                   "campaign",
-                   context)
+            send_email(farm.email_list(),
+                       "Le recensement 2026 du maraîchage diversifié",
+                       "campaign",
+                       context)
 
 class FarmAdmin(ImportExportModelAdmin):
     list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'ftev_display', 'production',
