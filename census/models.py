@@ -268,7 +268,10 @@ class Farm(models.Model):
         return self.end_year is None
 
     def email_list(self):
-        return [self.email] + list(self.marketgardener_set.values_list("email", flat=True))
+        list_emails = [self.email] + list(self.marketgardener_set.values_list("email", flat=True))
+        list_emails = [email for email in list_emails if email is not None]
+
+        return list_emails
 
     def __str__(self):
         return self.name
