@@ -26,6 +26,6 @@ Merci d'avance pour votre contribution au recensement !
 
 Je vous souhaite une bonne saison 2026 !
 
-P.S. : n'hésitez pas à me contacter pour toute question, suggestion ou remarque,
+P.S. : n'hésitez pas à me contacter pour toute question, suggestion ou remarque.
 
 {% endblock content %}
