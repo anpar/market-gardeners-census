@@ -95,7 +95,7 @@ def mark_staff(modeladmin, request, queryset):
 def mark_user(modeladmin, request, queryset):
     queryset.update(added_by="User")
 
-@admin.action(description="Lancer la campagne de collecte de données")
+@admin.action(description="Lancer la campagne annuelle")
 def campaign(modeladmin, request, queryset):
     for farm in queryset:
         # Delete existing link pointing to the same farm (if any)
@@ -115,7 +115,7 @@ def campaign(modeladmin, request, queryset):
         }
 
         send_email(farm.email_list(),
-                   "Le recensement du maraîchage diversifié",
+                   "Le recensement 2026 du maraîchage diversifié",
                    "campaign",
                    context)
 

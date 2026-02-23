@@ -12051,7 +12051,8 @@ textarea.form-control-lg {
     Add a nice market-gardening background image to the jumbotron-ish on the home page
  */
 .home-page-bg {
-    background-image: url("../bg.webp");
+    /*background-image: url("../bg.webp");*/
+    background-image: url("../bg-compressed.jpg");
     background-size: cover;
 }
 
