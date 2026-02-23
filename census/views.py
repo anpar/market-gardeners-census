@@ -199,10 +199,10 @@ class FarmUpdateView(generic.UpdateView):
             'diff': diff,
         }
 
-        send_email(["antoine.paris@uclouvain.be"],
-                   "Ferme modifiée : " + modified_farm.name + " à " + modified_farm.municipality.name,
-                   "farm_updated",
-                   context)
+        #send_email(["antoine.paris@uclouvain.be"],
+        #           "Ferme modifiée : " + modified_farm.name + " à " + modified_farm.municipality.name,
+        #           "farm_updated",
+        #           context)
 
         messages.success(self.request,"Modifications enregistrées !")
 
