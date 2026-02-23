@@ -120,7 +120,7 @@ def campaign(modeladmin, request, queryset):
                    context)
 
 class FarmAdmin(ImportExportModelAdmin):
-    list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'production',
+    list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'ftev_display', 'production',
                     'flagged', 'is_active', 'public', 'consent_display', 'email', 'phone', 'added_by',
                     'edited_by_user', 'last_update')
     ordering = ['name']
@@ -150,6 +150,7 @@ class FarmAdmin(ImportExportModelAdmin):
             "fields": [
                 "area",
                 "FTE",
+                "FTEv",
                 "production",
                 "start_year",
                 "end_year",

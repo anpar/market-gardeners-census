@@ -15,13 +15,14 @@
 
 			{% if not form.errors and not messages %}
 				<p class="alert alert-info">
-					Seuls quatre champs (indiqués en <b>gras</b> avec une <b>*</b>) sont obligatoires.
+					Seuls quatre champs (indiqués en <b>gras</b> avec une <b>*</b>) sont obligatoires. (Cela dit, plus vous complétez
+					de champs, plus les résultats du recensement seront intéressants.)
 				</p>
 
 				<p class="alert alert-warning">
 			    Seules les informations affichées dans <a href="{% url 'census:listing' %}">la liste</a> (nom de la ferme, commune,
 					site web et page Facebook) sont publiquement accessibles sur la plateforme. Toutes les autres données
-					resteront <b>privées</b> et ne seront jamais utilisées associées à votre nom sans votre consentement.
+					resteront <b>privées</b> et ne seront <b>jamais</b> utilisées associées à votre nom sans votre consentement.
 				</p>
 			{% endif %}
 
@@ -90,7 +91,9 @@
 						{% show_field form.FTE %}
 					</div>
 
-					<div class="col-auto"></div>
+					<div class="col-md-6">
+						{% show_field form.FTEv %}
+					</div>
 
 					<div class="col-md-6">
 						{% show_field form.start_year %}

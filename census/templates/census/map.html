@@ -17,12 +17,17 @@
 	<div class="container mt-4">
 		<h1>Carte des fermes maraîchères diversifiées</h1>
 
+		<p class="alert alert-warning" role="alert">
+			Vous n'êtes <b>pas</b> sur la carte ?
+			<a class="btn btn-sm btn-success" href="{% url 'census:create' %}">Ajouter votre ferme</a>
+		</p>
+
 		<p>La carte ci-dessous liste, par commune, l'ensemble des fermes maraîchères diversifiées recensées sur la plateforme.</p>
 
 		<p>
-			Les communes en <span style="color: #0101fe;"><b>bleu</b></span> comptent au moins un·e maraîcher·ères. La surface du cercle
+			Les communes en <span style="color: #0101fe;"><b>bleu</b></span> comptent au moins un·e maraîcher·ère. La surface du cercle
 			est proportionnelle au nombre de maraîcher·ères recensé·es dans la commune. Les communes en
-			<span style="color: #565e64;"><b>gris</b></span> ne compte pour le moment aucun·e maraîcher·ère recensé·e.
+			<span style="color: #565e64;"><b>gris</b></span> ne comptent pour le moment aucun·e maraîcher·ère recensé·e.
 		</p>
 
 		<hr class="my-4">

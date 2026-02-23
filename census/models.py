@@ -98,20 +98,25 @@ class Farm(models.Model):
     email = models.EmailField(max_length=250,
                               blank=False,
                               null=True,
-                              verbose_name="Adresse email")
+                              verbose_name="Adresse email",
+                              help_text="Cette adresse vous permettra de modifier les informations liées à votre ferme "
+                                        "via la plateforme. Vous serez également contacté·e une fois par an pour mettre à jour "
+                                        "vos données et les compléter (de nouvelles questions apparaîtront d'année en année sur "
+                                        "la plateforme).")
 
     # See https://django-phonenumber-field.readthedocs.io/en/latest/index.html
     phone = PhoneNumberField(region='BE',
                              blank=True,
                              null=True,
                              verbose_name="N° de téléphone",
-                             help_text="Peut être un numéro fixe ou GSM.")
+                             help_text="Fixe ou GSM.")
 
     consent = models.BooleanField(blank=False,
                                   default=False,
                                   verbose_name="J'accepte d'être contacté·e par l'UCLouvain pour des questions de recherche "
                                                "liées au maraîchage diversifié.",
-                                  help_text="Cela n'engage à rien d'autre qu'à peut-être un jour être contacté·e.")
+                                  help_text="Cela n'engage à rien d'autre qu'à peut-être un jour être contacté·e par un·e "
+                                            "chercheur·se.")
 
     cgu_consent = models.BooleanField(blank=False,
                                       default=False,
@@ -143,11 +148,28 @@ class Farm(models.Model):
                               blank=True,
                               null=True,
                               verbose_name="Nombre d'équivalents temps plein <u>rémunérés</u>",
-                              help_text="Pour la production de légumes seulement.")
+                              help_text="Il s'agit d'une <i>estimation</i> du nombre moyen de personnes travaillant à temps plein sur"
+                                        " une année pour la production de légumes. Exemples : vous à temps plein + 1 autre personne"
+                                        " à mi-temps toute l'année + 1 saisonnier·ère pour un tiers de l'année = 1 + 1/2 + 1/3 ="
+                                        " environ 1.8 équivalents temps plein rémunérés. <b>(Pour la production de légumes "
+                                        " seulement.)</b>")
 
     @admin.display(description="ETPr", ordering="FTE")
     def fte_display(self):
         return self.FTE
+
+    FTEv = models.DecimalField(decimal_places=1,
+                               max_digits=4,
+                               blank=True,
+                               null=True,
+                               verbose_name="Nombre d'équivalents temps plein <u>non</u>-rémunérés",
+                               help_text="Idem, mais pour la main d'oeuvre non-rémunérée, en moyenne sur une année."
+                                         " Exemples : aide familiale bénévole, stagiaires, volontaires, etc. <b>(Pour la"
+                                         " production de légumes seulement.)</b>")
+
+    @admin.display(description="ETPb", ordering="FTEv")
+    def ftev_display(self):
+        return self.FTEv
 
     PRODUCTION = {
         "Bio certifié": "Bio certifié",
@@ -171,7 +193,8 @@ class Farm(models.Model):
     end_year = models.IntegerField(blank=True,
                                    null=True,
                                    verbose_name="Année de <b>fin</b> d'activité (le cas échéant)",
-                                   help_text="Laisser vide si le projet est toujours actif.")
+                                   help_text="Laissez vide si le projet est toujours actif. <b>Si le projet n'est plus actif, "
+                                             "complétez ce champ pour ne plus être affiché sur la plateforme.</b>")
 
     @admin.display(description="Fin")
     def end_year_display(self):
