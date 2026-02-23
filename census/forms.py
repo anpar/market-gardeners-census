@@ -26,7 +26,7 @@ class EmailForm(forms.Form):
 class FarmForm(ModelForm):
     class Meta:
         model = Farm
-        exclude = ['comment', 'last_update', 'flagged', 'edited_by_user', 'added_by', 'public']
+        exclude = ['GPS_coordinates', 'comment', 'last_update', 'flagged', 'edited_by_user', 'added_by', 'public']
 
     # Replace class attribute of form fields with form-control/form-select for proper styling with Bootstrap 5
     def __init__(self, *args, **kwargs):
