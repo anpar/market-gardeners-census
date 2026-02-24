@@ -126,8 +126,10 @@ class FarmAdmin(ImportExportModelAdmin):
     list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'ftev_display', 'production_display',
                     'start_year_display', 'end_year_display', 'flagged', 'email_display', 'phone', 'consent_display', 'edited_by_user_display',
                     'last_update_display')
+    # TODO: more filters
+    list_filter = ['flagged', 'edited_by_user', 'cover_crop', 'production']
     ordering = ['name']
-    search_fields = ['name', 'email']
+    search_fields = ['name', 'email', "municipality__name"]
     actions = [make_public, hide, mark_staff, mark_user, campaign]
     list_per_page = 500
 
