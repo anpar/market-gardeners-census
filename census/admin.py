@@ -127,7 +127,7 @@ class FarmAdmin(ImportExportModelAdmin):
                     'start_year_display', 'end_year_display', 'flagged', 'email_display', 'phone', 'consent_display', 'edited_by_user_display',
                     'last_update_display')
     # TODO: more filters
-    list_filter = ['flagged', 'edited_by_user', 'cover_crop', 'production']
+    list_filter = ['flagged', 'edited_by_user', 'cover_crop', 'production', 'end_year']
     ordering = ['name']
     search_fields = ['name', 'email', "municipality__name"]
     actions = [make_public, hide, mark_staff, mark_user, campaign]
