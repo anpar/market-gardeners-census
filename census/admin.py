@@ -123,11 +123,11 @@ def campaign(modeladmin, request, queryset):
                        context)
 
 class FarmAdmin(ImportExportModelAdmin):
-    list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'ftev_display', 'production',
-                    'flagged', 'is_active', 'public', 'consent_display', 'email', 'phone', 'added_by',
-                    'edited_by_user', 'last_update')
+    list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'ftev_display', 'production_display',
+                    'start_year_display', 'end_year_display', 'flagged', 'email_display', 'phone', 'consent_display', 'edited_by_user_display',
+                    'last_update_display')
     ordering = ['name']
-    search_fields = ['name']
+    search_fields = ['name', 'email']
     actions = [make_public, hide, mark_staff, mark_user, campaign]
     list_per_page = 500
 
@@ -138,7 +138,7 @@ class FarmAdmin(ImportExportModelAdmin):
     #}
 
     # En attendant, en readonly pour éviter le "this field is mandatory" intempestif
-    readonly_fields = ('cover_crop',)
+    readonly_fields = ('cover_crop', 'consent', 'cgu_consent')
 
     fieldsets = [
         (None, {"fields": ["name"]}),
@@ -157,26 +157,37 @@ class FarmAdmin(ImportExportModelAdmin):
                 "production",
                 "start_year",
                 "end_year",
-                "cover_crop",
-                "why_no_cover_crop",
+                ],
+            "classes": [""]
+        }),
+        ("Priorités de la recherche", {
+            "fields": [
                 "research_priorities"],
+            "classes": [""]
+        }),
+        ("Pratiques agricoles" , {
+            "fields": [
+                "cover_crop",
+                "why_no_cover_crop"],
             "classes": [""]
         }),
         ("Contacts", {
             "fields": [
                 "email",
                 "phone",
+                "consent",
                 "website",
                 "fb_page"],
             "classes": [""]
         }),
-        ("Divers", {
+        ("Métadonnées", {
             "fields": [
                 "comment",
                 "public",
                 "added_by",
                 "edited_by_user",
                 "flagged",
+                "cgu_consent"
             ],
             "classes": [""]
         })

@@ -104,6 +104,10 @@ class Farm(models.Model):
                                         "vos données et les compléter (de nouvelles questions apparaîtront d'année en année sur "
                                         "la plateforme).")
 
+    @admin.display(description="E-mail", ordering="email")
+    def email_display(self):
+        return self.email[:10] + '...' if self.email is not None else None
+
     # See https://django-phonenumber-field.readthedocs.io/en/latest/index.html
     phone = PhoneNumberField(region='BE',
                              blank=True,
@@ -124,7 +128,7 @@ class Farm(models.Model):
                                       help_text="Les conditions générales d'utilisation s'ouvriront dans un nouvel onglet "
                                                 "pour vous éviter de perdre les données complétées dans le formulaire.")
 
-    @admin.display(boolean=True, description="Contact ?", ordering="consent")
+    @admin.display(boolean=True, description="Contact?", ordering="consent")
     def consent_display(self):
         return self.consent
 
@@ -140,7 +144,7 @@ class Farm(models.Model):
                                help_text="Sans compter les éventuelles autres activités agricoles : élevage, verger, "
                                          "petits fruits, etc.")
 
-    @admin.display(description="Surface (ha)", ordering="area")
+    @admin.display(description="S (ha)", ordering="area")
     def area_display(self):
         return self.area
 
@@ -184,11 +188,15 @@ class Farm(models.Model):
                                   null=True,
                                   verbose_name="Mode de production")
 
+    @admin.display(description="Prod.", ordering="production")
+    def production_display(self):
+        return self.production
+
     start_year = models.IntegerField(blank=True,
                                      null=True,
                                      verbose_name="Année d'installation")
 
-    @admin.display(description="Début")
+    @admin.display(description="Start", ordering="start_year")
     def start_year_display(self):
         return self.start_year
 
@@ -198,7 +206,7 @@ class Farm(models.Model):
                                    help_text="Laissez vide si le projet est toujours actif. <b>Si le projet n'est plus actif, "
                                              "complétez ce champ pour ne plus être affiché sur la plateforme.</b>")
 
-    @admin.display(description="Fin")
+    @admin.display(description="End", ordering="end_year")
     def end_year_display(self):
         return self.end_year
 
@@ -241,19 +249,27 @@ class Farm(models.Model):
     last_update = models.DateTimeField(auto_now=True,
                                        verbose_name="Dernière mise à jour")
 
+    @admin.display(description="Màj", ordering="last_update")
+    def last_update_display(self):
+        return self.last_update.strftime("%d/%m/%y %H:%M")
+
     public = models.BooleanField(blank=False,
                                  default=False,
                                  verbose_name="Public",
                                  help_text="Indique si la ferme maraîchère est listée sur la plateforme ou non.")
 
     flagged = models.BooleanField(default=False,
-                                  verbose_name="Flagged",
+                                  verbose_name="Marquée",
                                   help_text="Permet de marquer une ferme en cas de doute sur les données."
                                             " (Utiliser le champ commentaire pour détailler.)")
 
     edited_by_user = models.BooleanField(default=True,
-                                         verbose_name="Edited by user",
-                                         help_text="Indique si les données ont été éditées par un·e utilisateur·rice.")
+                                         verbose_name="Modifiée par le/la maraîche·ère",
+                                         help_text="Indique si les données ont été éditées par le/la maraîcher·ère concernée.")
+
+    @admin.display(boolean=True, description="Val?", ordering="edited_by_user")
+    def edited_by_user_display(self):
+        return self.edited_by_user
 
     ADDED_BY = {
         "Staff": "Staff",
