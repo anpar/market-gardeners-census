@@ -120,7 +120,9 @@ class Farm(models.Model):
 
     cgu_consent = models.BooleanField(blank=False,
                                       default=False,
-                                      verbose_name="CGU")
+                                      verbose_name="CGU",
+                                      help_text="Les conditions générales d'utilisation s'ouvriront dans un nouvel onglet "
+                                                "pour vous éviter de perdre les données complétées dans le formulaire.")
 
     @admin.display(boolean=True, description="Contact ?", ordering="consent")
     def consent_display(self):

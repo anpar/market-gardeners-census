@@ -116,6 +116,7 @@ def campaign(modeladmin, request, queryset):
                 'unique_edit_url': unique_edit_url,
             }
 
+            # FIXME: a try-catch here + message after operation is done ?
             send_email(farm.email_list(),
                        "Le recensement 2026 du maraîchage diversifié",
                        "campaign",
