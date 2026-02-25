@@ -140,7 +140,7 @@ class Farm(models.Model):
                                max_digits=4,
                                blank=True,
                                null=True,
-                               verbose_name="Surface brute dédiée à la production de légumes (en <b>ha</b>)",
+                               verbose_name="Surface brute <u>dédiée à la production de légumes</u> (en <b>ha</b>)",
                                help_text="Sans compter les éventuelles autres activités agricoles : élevage, verger, "
                                          "petits fruits, etc.")
 
@@ -153,9 +153,9 @@ class Farm(models.Model):
                               max_digits=4,
                               blank=True,
                               null=True,
-                              verbose_name="Nombre d'équivalents temps plein <u>rémunérés</u>",
+                              verbose_name="Nombre d'équivalents temps plein <u>rémunérés</u> (vous inclus)",
                               help_text="Il s'agit d'une <i>estimation</i> du nombre moyen de personnes travaillant à temps plein sur"
-                                        " une année pour la production de légumes. Exemples : vous à temps plein + 1 autre personne"
+                                        " une année pour la production de légumes. Exemples : <u>vous</u> à temps plein + 1 autre personne"
                                         " à mi-temps toute l'année + 1 saisonnier·ère pour un tiers de l'année = 1 + 1/2 + 1/3 ="
                                         " environ 1.8 équivalents temps plein rémunérés. <b>(Pour la production de légumes "
                                         " seulement.)</b>")
@@ -194,7 +194,8 @@ class Farm(models.Model):
 
     start_year = models.IntegerField(blank=True,
                                      null=True,
-                                     verbose_name="Année d'installation")
+                                     verbose_name="Année d'installation",
+                                     help_text="En quelle année avez-vous démarré votre projet de maraîchage ?")
 
     @admin.display(description="Start", ordering="start_year")
     def start_year_display(self):

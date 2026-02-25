@@ -13,8 +13,7 @@ Dans ce contexte, j'ai identifié votre ferme : {{ farm.name }}, dans la commune
 
 Accepteriez-vous de valider et compléter les données liées à votre ferme sur
 la plateforme ? Cela ne vous prendra que 2 minutes et contribuerait grandement à la qualité
-du recensement. C'est aussi l'occasion de (i) contribuer à ma thèse dédiée à la pratique des couverts végétaux
-en maraîchage diversifié, et (ii) de donner votre avis sur ce que devraient être les priorités de la recherche
+du recensement. C'est aussi l'occasion de donner votre avis sur ce que devraient être les priorités de la recherche
 scientifique sur le maraîchage diversifié.
 
 Cela se passe par ici : {{ unique_edit_url }}

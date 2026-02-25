@@ -126,21 +126,25 @@ class FarmAdmin(ImportExportModelAdmin):
     list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'ftev_display', 'production_display',
                     'start_year_display', 'end_year_display', 'flagged', 'email_display', 'phone', 'consent_display', 'edited_by_user_display',
                     'last_update_display')
-    # TODO: more filters
-    list_filter = ['flagged', 'edited_by_user', 'cover_crop', 'production', 'end_year']
-    ordering = ['name']
+
+    # TODO: nicer filter https://docs.djangoproject.com/fr/6.0/ref/contrib/admin/filters/
+    list_filter = ['flagged', 'edited_by_user', 'cover_crop', 'production', 'end_year', 'consent']
+    ordering = ['-last_update']
     search_fields = ['name', 'email', "municipality__name"]
     actions = [make_public, hide, mark_staff, mark_user, campaign]
     list_per_page = 500
 
-    # This is ignored for fields that have 'choices', see : https://github.com/django/django/pull/20559
-    #formfield_overrides = {
-    #    models.NullBooleanField: {'required': False},
-    #    models.BooleanField: {'required': False},
-    #}
+    formfield_overrides = {
+        # Allows to update a entry without a known email address
+        models.EmailField: {'required': False},
+        # Should do the same for the cover crop checkbox, but does not work
+        # This is ignored for fields that have 'choices', see : https://github.com/django/django/pull/20559
+        #models.NullBooleanField: {'required': False},
+        #models.BooleanField: {'required': False},
+    }
 
     # En attendant, en readonly pour éviter le "this field is mandatory" intempestif
-    readonly_fields = ('cover_crop', 'consent', 'cgu_consent')
+    readonly_fields = ('cover_crop', 'why_no_cover_crop', 'research_priorities', 'consent', 'cgu_consent')
 
     fieldsets = [
         (None, {"fields": ["name"]}),
