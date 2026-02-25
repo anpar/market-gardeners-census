@@ -12,9 +12,11 @@ from .utils import send_email
 
 def index(request):
     farm_list = Farm.objects.filter(public=True, end_year=None)
+    farm_list_validated = farm_list.filter(edited_by_user=True)
 
     context = {
         'farm_count': farm_list.count(),
+        'farm_validated_count': farm_list_validated.count(),
         'municipality_count': farm_list.values('municipality').distinct().count(),
     }
 
