@@ -42,7 +42,8 @@
 			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".namur">Namur</button>
 			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".liège">Liège</button>
 			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".luxembourg">Luxembourg</button>
-			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".bruxelles,.brabant-flamand">Bruxelles <small>(et communes à facilités)</small></button>
+			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".bruxelles">Bruxelles</button>
+			<button type="button" class="btn btn-primary mt-1" onClick="filterProvince(this)" data-filter=".brabant-flamand">Brabant flamand</button>
 			<button type="button" class="btn btn-secondary active mt-1" onClick="filterProvince(this)" data-filter="all">Tout afficher</button>
 		</div>
 
@@ -145,6 +146,23 @@
 				[].forEach.call(document.querySelectorAll('path.leaflet-interactive:not(' + data_filter + ')'), function (el) {
 					el.style.visibility = 'hidden';
 				});
+			}
+
+			if (data_filter === '.brabant-wallon') {
+				map.setView([50.660, 4.564], 10)
+			} else if (data_filter === '.hainaut') {
+				map.setView([50.402, 3.801], 9)
+			} else if (data_filter === '.namur') {
+				map.setView([50.200, 4.812], 9)
+			} else if (data_filter === '.luxembourg') {
+				map.setView([49.946, 5.422], 9)
+			} else if (data_filter === '.liège') {
+				map.setView([50.498, 5.707], 9)
+			} else if (data_filter == '.bruxelles') {
+				map.setView([50.822, 4.377], 11)
+			} else if (data_filter == '.brabant-flamand') {
+				// TODO: à recentrer si d'autres communes du brabant flamand s'ajoutent
+				map.setView([50.822, 4.377], 11)
 			}
 
 			let buttons = document.getElementsByTagName('button')
