@@ -3,8 +3,8 @@
 {% block content %}
 Madame, Monsieur,
 
-Dans le cadre de ma thèse à l'UCLouvain dédiée au maraîchage diversifié, une plateforme de recensement des fermes
-maraîchères diversifiées situées en Wallonie et à Bruxelles vient d'être créée : {{ home_url }}.
+Dans le cadre de ma thèse à l'UCLouvain dédiée au maraîchage diversifié, une plateforme de recensement du
+maraîchage diversifié en Wallonie et à Bruxelles vient d'être créée : {{ home_url }}.
 
 Vous trouverez plus d'informations sur les objectifs de ce recensement dans la FAQ de la plateforme.
 
