@@ -10,17 +10,17 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name="municipality",
-            name="alt_email",
-            field=models.EmailField(
-                blank=True,
-                help_text="Au cas où une 2e adresse semble pertinente.",
-                max_length=250,
-                null=True,
-                verbose_name="Adresse e-mail alternative",
-            ),
-        ),
+        # migrations.AddField(
+        #     model_name="municipality",
+        #     name="alt_email",
+        #     field=models.EmailField(
+        #         blank=True,
+        #         help_text="Au cas où une 2e adresse semble pertinente.",
+        #         max_length=250,
+        #         null=True,
+        #         verbose_name="Adresse e-mail alternative",
+        #     ),
+        # ),
         migrations.AddField(
             model_name="municipality",
             name="alt_email2",
