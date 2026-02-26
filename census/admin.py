@@ -22,14 +22,35 @@ class MunicipalityResource(resources.ModelResource):
     class Meta:
         model = Municipality
 
+@admin.action(description="Lancer la campagne annuelle")
+def campaign_municipality(modeladmin, request, queryset):
+    for mun in queryset:
+        home_url = request.build_absolute_uri(reverse("census:index"))
+        listing_url = request.build_absolute_uri(reverse("census:listing"))
+        map_url = request.build_absolute_uri(reverse("census:map"))
+
+        farm_count = Farm.objects.filter(public=True, end_year=None, municipality_id=mun.id).count()
+
+        context = {
+            'home_url': home_url,
+            'listing_url': listing_url,
+            'map_url': map_url,
+            'farm_count': farm_count,
+        }
+
+        send_email(mun.email_list(),
+                   "Le recensement 2026 du maraîchage diversifié : appel aux communes",
+                   "campaign_municipality",
+                   context)
+
 class MunicipalityAdmin(ImportExportModelAdmin):
-    list_display = ('id', 'name', 'province', 'population', 'area', 'GPS_coordinates')
+    list_display = ('id', 'name', 'province', 'population', 'area', 'GPS_coordinates', 'email')
     list_filter = ['province']
     ordering = ['name']
     search_fields = ['name']
+    actions = [campaign_municipality]
     resource_class = MunicipalityResource
 
-# TODO: does it need to be editable in the admin interface ? Municipalities don't often change.
 admin.site.register(Municipality, MunicipalityAdmin)
 
 """
@@ -49,8 +70,6 @@ class MarketGardenerAdmin(ImportExportModelAdmin):
     list_display = ('lastname', 'firstname', 'farm', 'phone', 'email')
     ordering = ['lastname']
     search_fields = ['firstname', 'lastname']
-
-
 
 admin.site.register(MarketGardener, MarketGardenerAdmin)
 

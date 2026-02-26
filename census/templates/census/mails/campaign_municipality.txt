@@ -1,0 +1,36 @@
+{% extends "census/mails/base_mail.txt" %}
+
+{% block content %}
+Madame, Monsieur,
+
+Dans le cadre de ma thèse à l'UCLouvain dédiée au maraîchage diversifié, une plateforme de recensement des fermes
+maraîchères diversifiées situées en Wallonie et à Bruxelles vient d'être créée : {{ home_url }}.
+
+Vous trouverez plus d'informations sur les objectifs de ce recensement dans la FAQ de la plateforme.
+
+Dans ce contexte, je contacte chacune des communes du territoire afin de compléter le recensement
+et d'identifier les maraîcher·ères diversifié·es (c'est-à-dire produisant plus de 12 catégories
+de légumes) à côté desquel·les je serai passé·es.
+
+{% if farm_count > 0 %}
+Dans votre commune, j'ai identifié {{ farm_count }} maraîcher·ère{{ farm_count|pluralize:'s' }}
+diversifié·e{{ farm_count|pluralize:'s' }}, que vous retrouverez dans la liste ({{ listing_url }})
+ou, par commune, sur la carte ({{ map_url }}) disponible sur la plateforme.
+
+Accepteriez-vous de jeter un oeil à cette liste pour (i) me confirmer que les maraîcher·ères listé·es dans votre
+commune sont toujours en activité et (ii) m'indiquer les éventuel·les maraîcher·ères manquantes (par exemple en me
+communiquant leur site web, page Facebook, page sur un répertoire de producteur·rices, le nom de leur ferme ou leur adresse e-mail) ?
+{% endif %}
+
+{% if farm_count == 0 %}
+Dans votre commune, je n'ai identifié <b>aucun·e</b> maraîcher·ère diversifié·e.
+
+Pouvez-vous me confirmer qu'aucun·e maraîcher·ère diversifié·e ne produit des légumes sur le territoire de votre
+commune ? Ou, dans le cas contraire, pouvez-me m'indiquer les maraîcher·ères que je n'ai pas identifié·es (par exemple
+en me communiquant leur site web, page Facebook, page sur un répertoire de producteur·rices, le nom de leur ferme ou leur adresse e-mail) ?
+{% endif %}
+
+Merci d'avance pour votre contribution au recensement !
+
+Bien à vous,
+{% endblock content %}
