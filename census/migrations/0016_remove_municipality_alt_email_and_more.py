@@ -22,8 +22,8 @@ class Migration(migrations.Migration):
             model_name="municipality",
             name="alt_email3",
         ),
-        migrations.RemoveField(
-            model_name="municipality",
-            name="email",
-        ),
+        # migrations.RemoveField(
+        #     model_name="municipality",
+        #     name="email",
+        # ),
     ]
