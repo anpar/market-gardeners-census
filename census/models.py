@@ -57,6 +57,19 @@ class Municipality(models.Model):
                                   verbose_name="Adresse e-mail alternative",
                                   help_text="Au cas où une 2e adresse semble pertinente.")
 
+    alt_email2 = models.EmailField(max_length=250,
+                                   null=True,
+                                   blank=True,
+                                   verbose_name="2e adresse e-mail alternative",
+                                   help_text="Au cas où une 3e adresse semble pertinente.")
+
+    alt_email3 = models.EmailField(max_length=250,
+                                   null=True,
+                                   blank=True,
+                                   verbose_name="3e adresse e-mail alternative",
+                                   help_text="Au cas où une 4e adresse semble pertinente.")
+
+
     def email_list(self):
         list_emails = [self.email, self.alt_email]
         list_emails = [email for email in list_emails if email is not None]
