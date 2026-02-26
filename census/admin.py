@@ -44,7 +44,7 @@ def campaign_municipality(modeladmin, request, queryset):
                    context)
 
 class MunicipalityAdmin(ImportExportModelAdmin):
-    list_display = ('id', 'name', 'province', 'population', 'area', 'GPS_coordinates', 'email')
+    list_display = ('id', 'name', 'province', 'population', 'area', 'GPS_coordinates')#, 'email')
     list_filter = ['province']
     ordering = ['name']
     search_fields = ['name']
