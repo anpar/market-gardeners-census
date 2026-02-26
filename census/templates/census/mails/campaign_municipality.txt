@@ -15,7 +15,8 @@ de légumes) à côté desquel·les je serai passé·es.
 {% if farm_count > 0 %}
 Dans votre commune, j'ai identifié {{ farm_count }} maraîcher·ère{{ farm_count|pluralize:'s' }}
 diversifié·e{{ farm_count|pluralize:'s' }}, que vous retrouverez dans la liste ({{ listing_url }})
-ou, par commune, sur la carte ({{ map_url }}) disponible sur la plateforme.
+(dans laquelle vous pouvez effectuer une recherche par commune) ou sur la carte ({{ map_url }}) disponible
+sur la plateforme.
 
 Accepteriez-vous de jeter un oeil à cette liste pour (i) me confirmer que les maraîcher·ères listé·es dans votre
 commune sont toujours en activité et (ii) m'indiquer les éventuel·les maraîcher·ères manquantes (par exemple en me
