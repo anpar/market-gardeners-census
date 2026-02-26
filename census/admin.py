@@ -39,7 +39,7 @@ def campaign_municipality(modeladmin, request, queryset):
         }
 
         send_email(mun.email_list(),
-                   "Le recensement 2026 du maraîchage diversifié : appel aux communes",
+                   "Recensement 2026 du maraîchage diversifié : appel aux communes",
                    "campaign_municipality",
                    context)
 
@@ -52,6 +52,15 @@ class MunicipalityAdmin(ImportExportModelAdmin):
     resource_class = MunicipalityResource
 
 admin.site.register(Municipality, MunicipalityAdmin)
+
+"""
+    EXPIRING UNIQUE EDIT LINK
+"""
+class ExpiringUniqueEditLinkAdmin(ImportExportModelAdmin):
+    list_display = ('farm', 'token', 'expiration_date')
+    ordering = ['-expiration_date']
+
+admin.site.register(ExpiringUniqueEditLink, ExpiringUniqueEditLinkAdmin)
 
 """
     MARKET GARDENERS
@@ -231,5 +240,3 @@ class FarmAdmin(ImportExportModelAdmin):
         return form
 
 admin.site.register(Farm, FarmAdmin)
-
-admin.site.register(ExpiringUniqueEditLink)

@@ -69,7 +69,8 @@ class GetEditLinkFormView(generic.FormView):
 
         if form.check_match(email_list):
             # Delete existing link pointing to the same farm (if any)
-            ExpiringUniqueEditLink.objects.filter(farm=farm).delete()
+            # Update: don't, to avoid 404 if clicking on a old link that has not expired
+            #ExpiringUniqueEditLink.objects.filter(farm=farm).delete()
 
             # Create a new expiring unique edit link
             link = ExpiringUniqueEditLink.create(farm=farm, days=1)
@@ -130,10 +131,14 @@ class FarmCreateView(generic.CreateView):
             "admin_change_url": admin_change_url,
         }
 
-        send_email(["antoine.paris@uclouvain.be"],
-                   "Nouvelle ferme : " + new_farm.name + " à " + new_farm.municipality.name,
-                   "new_farm",
-                   context)
+        # FIXME: not clean
+        try:
+            send_email(["antoine.paris@uclouvain.be"],
+                       "Nouvelle ferme : " + new_farm.name + " à " + new_farm.municipality.name,
+                       "new_farm",
+                       context)
+        except Exception as e:
+            pass
 
         return super(FarmCreateView, self).form_valid(form)
 
@@ -201,10 +206,14 @@ class FarmUpdateView(generic.UpdateView):
             'diff': diff,
         }
 
-        send_email(["antoine.paris@uclouvain.be"],
-                   "Ferme modifiée : " + modified_farm.name + " à " + modified_farm.municipality.name,
-                   "farm_updated",
-                   context)
+        # FIXME: not clean
+        try:
+            send_email(["antoine.paris@uclouvain.be"],
+                       "Ferme modifiée : " + modified_farm.name + " à " + modified_farm.municipality.name,
+                       "farm_updated",
+                       context)
+        except Exception as e:
+            pass
 
         messages.success(self.request,"Modifications enregistrées !")
 
