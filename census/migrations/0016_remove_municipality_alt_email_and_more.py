@@ -10,10 +10,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name="municipality",
-            name="alt_email",
-        ),
+        # migrations.RemoveField(
+        #     model_name="municipality",
+        #     name="alt_email",
+        # ),
         migrations.RemoveField(
             model_name="municipality",
             name="alt_email2",
