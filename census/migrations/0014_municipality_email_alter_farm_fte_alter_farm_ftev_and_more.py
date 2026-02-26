@@ -10,17 +10,17 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name="municipality",
-            name="email",
-            field=models.EmailField(
-                blank=True,
-                help_text="Permet de contacter les communes pour améliorer le recensement.",
-                max_length=250,
-                null=True,
-                verbose_name="Adresse e-mail",
-            ),
-        ),
+        # migrations.AddField(
+        #     model_name="municipality",
+        #     name="email",
+        #     field=models.EmailField(
+        #         blank=True,
+        #         help_text="Permet de contacter les communes pour améliorer le recensement.",
+        #         max_length=250,
+        #         null=True,
+        #         verbose_name="Adresse e-mail",
+        #     ),
+        # ),
         migrations.AlterField(
             model_name="farm",
             name="FTE",
