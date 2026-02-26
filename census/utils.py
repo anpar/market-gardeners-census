@@ -12,7 +12,7 @@ def send_email(to, subject, template, context):
         context=context,
     )
 
-    cc = None#["antoine.paris@uclouvain.be"]
+    cc = ["antoine.paris@uclouvain.be"]
     if to[0] == cc[0]:
         cc = None
 
