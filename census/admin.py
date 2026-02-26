@@ -23,7 +23,8 @@ class MunicipalityResource(resources.ModelResource):
         model = Municipality
 
 class MunicipalityAdmin(ImportExportModelAdmin):
-    list_display = ('id', 'name', 'province', 'population', 'area')
+    list_display = ('id', 'name', 'province', 'population', 'area', 'GPS_coordinates')
+    list_filter = ['province']
     ordering = ['name']
     search_fields = ['name']
     resource_class = MunicipalityResource
