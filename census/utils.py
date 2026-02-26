@@ -12,7 +12,7 @@ def send_email(to, subject, template, context):
         context=context,
     )
 
-    cc = ["antoine.paris@uclouvain.be"]
+    cc = None#["antoine.paris@uclouvain.be"]
     if to[0] == cc[0]:
         cc = None
 
@@ -21,7 +21,7 @@ def send_email(to, subject, template, context):
         body=text_content,
         from_email="Antoine Paris <recensement@maraichage-wallonie.be>",
         to=to,
-        cc=cc,
+        #cc=cc,
     )
 
     email.attach_alternative(html_content, "text/html")
