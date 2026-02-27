@@ -44,13 +44,12 @@
 				{% for m in messages %}
 					{% if m.tags == 'success' %}
 						<p class="alert alert-success" role="alert">
-							{{ m }}
+							{{ m | safe }}
 						</p>
 					{% endif %}
 					{% if m.tags == 'error' %}
 						<p class="alert alert-danger" role="alert">
-							{{ m }}
-							Vous pensez que c'est une erreur ? <a href="/#contact">Contactez-nous</a>.
+							{{ m | safe }}
 						</p>
 					{% endif %}
 				{% endfor %}
@@ -62,8 +61,8 @@
 				Pour modifier les informations publiques liées à votre ferme
 				(nom, commune, site web et page Facebook) et les informations privées utiles au recensement (surface cultivée,
 				année d'installation, mode de production, etc.), indiquez ci-dessous l'adresse e-mail de votre ferme/projet de
-				maraîchage. Vous recevrez un lien unique valable 24 heures permettant d'éditer votre ferme. Merci d'avance pour
-				votre contribution au recensement !
+				maraîchage. Vous recevrez <b>un lien unique valable 24 heures</b> permettant d'éditer votre ferme.
+				<b>Merci</b> d'avance pour  votre contribution au recensement !
 			</p>
 
 			<!-- Si un ou plusieurs mails pour cette ferme se trouve dans la base de données, afficher le formulaire -->

@@ -83,16 +83,25 @@ class GetEditLinkFormView(generic.FormView):
                 "url": unique_edit_url,
             }
 
-            send_email([form.cleaned_data['email']],
-                       "Modifier votre ferme : votre lien unique",
-                       "edit_link",
-                       context)
+            try:
+                send_email([form.cleaned_data['email']],
+                           "Modifier votre ferme : votre lien unique",
+                           "edit_link",
+                           context)
 
-            messages.success(self.request,"Le lien est parti et devrait arriver dans quelques minutes !"
-                                          " Vérifiez vos courriers indésirables.")
+                messages.success(self.request, "Le lien est parti et devrait arriver dans quelques minutes !"
+                                               " <b>Vérifiez vos courriers indésirables</b>.")
+            except Exception as e:
+                messages.error(self.request, "Une erreur indépendante de ma volonté s'est produite lors de l'envoi de l'e-mail. "
+                                             "Veuillez ré-essayer dans quelques minutes. Si cette erreur persiste, merci "
+                                             "de <a href='mailto:antoine.paris@uclouvain.be'>me contacter</a> en précisant "
+                                             "l'erreur ({0}). Je reviendrai vers vous avec votre lien d'édition unique et "
+                                             "tenterai de résoudre le problème au plus vite.".format(str(type(e).__name__) + ": " + str(e)[1:-1]))
+
         else:
             messages.error(self.request,"L'adresse e-mail indiquée ne correspond pas à celle(s) se trouvant"
-                                        " dans notre base de données.")
+                                        " dans notre base de données. Vous pensez que c'est une erreur ? "
+                                        " <a href='/#contact'>Contactez-moi</a>.")
 
         return super(GetEditLinkFormView, self).form_valid(form)
 
