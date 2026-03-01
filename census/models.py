@@ -94,7 +94,7 @@ class Farm(models.Model):
 
     municipality = models.ForeignKey(Municipality,
                                      on_delete=models.PROTECT,
-                                     verbose_name="Commune du lieu de production",
+                                     verbose_name="Commune du lieu de <u>production</u>",
                                      help_text="Parmi les 261 communes wallonnes, les 19 communes bruxelloises et les 6 communes à facilités.")
 
     @admin.display(description="Commune", ordering="name")
@@ -131,9 +131,9 @@ class Farm(models.Model):
                               null=True,
                               verbose_name="Adresse email",
                               help_text="Cette adresse vous permettra de modifier les informations liées à votre ferme "
-                                        "via la plateforme. Vous serez également contacté·e une fois par an pour mettre à jour "
-                                        "vos données et les compléter (de nouvelles questions apparaîtront d'année en année sur "
-                                        "la plateforme).")
+                                        "via la plateforme. Vous serez également contacté·e pour chaque campagne annuelle de "
+                                        "recensement pour mettre à jour vos données et les compléter (de nouvelles questions "
+                                        "apparaîtront d'année en année sur la plateforme).")
 
     @admin.display(description="E-mail", ordering="email")
     def email_display(self):
@@ -184,12 +184,11 @@ class Farm(models.Model):
                               max_digits=4,
                               blank=True,
                               null=True,
-                              verbose_name="Nombre d'équivalents temps plein <u>rémunérés</u> (vous inclus)",
+                              verbose_name="Nombre d'équivalents temps plein <b>rémunérés</b> <u>dédiés à la production de légumes</u> (vous inclus)",
                               help_text="Il s'agit d'une <i>estimation</i> du nombre moyen de personnes travaillant à temps plein sur"
                                         " une année pour la production de légumes. Exemples : <u>vous</u> à temps plein + 1 autre personne"
                                         " à mi-temps toute l'année + 1 saisonnier·ère pour un tiers de l'année = 1 + 1/2 + 1/3 ="
-                                        " environ 1.8 équivalents temps plein rémunérés. <b>(Pour la production de légumes "
-                                        " seulement.)</b>")
+                                        " environ 1.8 équivalents temps plein rémunérés.")
 
     @admin.display(description="ETPr", ordering="FTE")
     def fte_display(self):
@@ -199,10 +198,9 @@ class Farm(models.Model):
                                max_digits=4,
                                blank=True,
                                null=True,
-                               verbose_name="Nombre d'équivalents temps plein <u>non</u>-rémunérés",
+                               verbose_name="Nombre d'équivalents temps plein <b>non</b>-rémunérés <u>dédiés à la production de légumes</u>",
                                help_text="Idem, mais pour la main d'oeuvre non-rémunérée, en moyenne sur une année."
-                                         " Exemples : aide familiale bénévole, stagiaires, volontaires, etc. <b>(Pour la"
-                                         " production de légumes seulement.)</b>")
+                                         " Exemples : aide familiale bénévole, stagiaires, volontaires, etc.")
 
     @admin.display(description="ETPb", ordering="FTEv")
     def ftev_display(self):
@@ -236,7 +234,7 @@ class Farm(models.Model):
                                    null=True,
                                    verbose_name="Année de <b>fin</b> d'activité (le cas échéant)",
                                    help_text="Laissez vide si le projet est toujours actif. <b>Si le projet n'est plus actif, "
-                                             "complétez ce champ pour ne plus être affiché sur la plateforme.</b>")
+                                             "complétez ce champ pour ne plus être visible sur la plateforme.</b>")
 
     @admin.display(description="End", ordering="end_year")
     def end_year_display(self):
