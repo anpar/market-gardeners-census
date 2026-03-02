@@ -4,10 +4,8 @@
 Bonjour,
 
 Dans le cadre de ma thèse à l'UCLouvain dédiée au maraîchage diversifié, je lance une
-plateforme de recensement des fermes maraîchères diversifiées en Wallonie et à Bruxelles.
-Parce que aujourd'hui, on ne sait pas vraiment combien de maraîcher·ères
-diversifié·es produisent des légumes, sur quelle surface, etc. L'objectif de cette plateforme
-est donc de combler ce manque ! Vous trouverez plus d'informations dans la FAQ : {{ home_url }}#faq
+plateforme de recensement des fermes maraîchères diversifiées (+ de 12 catégories de légumes cultivés)
+en Wallonie et à Bruxelles. Vous trouverez plus d'informations dans la FAQ : {{ home_url }}#faq
 
 Dans ce contexte, j'ai identifié votre ferme : {{ farm.name }}, dans la commune de {{ farm.municipality.name }}.
 
