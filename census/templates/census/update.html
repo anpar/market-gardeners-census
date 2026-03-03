@@ -11,6 +11,12 @@
 
 	<h1>Modifier les informations d'une ferme</h1>
 
+	<p class="alert alert-danger" role="alert">
+		Par « ferme maraîchère diversifiée », nous entendons une ferme qui <b>produit</b> et vend <u>à titre professionnel</u>
+		un minimum de <b>12 catégories de légumes</b>. Si ce n'est pas votre cas mais que vous êtes repris sur cette
+		plateforme, merci de <a href="/#contact">nous contacter</a>.
+	</p>
+
 	{% if not display_form %}
 		<p class="alert alert-danger" role="alert">
 			Le lien d'édition a expiré. Vous pouvez en demander un nouveau <a href="{% url 'census:view' farm_id %}">ici</a>.
