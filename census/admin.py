@@ -44,7 +44,7 @@ def campaign_municipality(modeladmin, request, queryset):
                    context)
 
 class MunicipalityAdmin(ImportExportModelAdmin):
-    list_display = ('id', 'name', 'province', 'population', 'area', 'GPS_coordinates', 'email')
+    list_display = ('name', 'province', 'population', 'area', 'GPS_coordinates', 'email')
     list_filter = ['province']
     ordering = ['name']
     search_fields = ['name']
@@ -150,6 +150,8 @@ def campaign(modeladmin, request, queryset):
                        "Le recensement 2026 du maraîchage diversifié",
                        "campaign",
                        context)
+
+# TODO: @admin.action create unique expiring link
 
 class FarmAdmin(ImportExportModelAdmin):
     list_display = ('name_display', 'municipality_display', 'area_display', 'fte_display', 'ftev_display', 'production_display',
