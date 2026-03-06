@@ -1,6 +1,6 @@
 <label for="{{ field.id_for_label }}" class="col-form-label">
 	{% if field.field.required %}
-		<b>{{ field.label }} <small>*</small></b>
+		<b>{{ field.label | safe }} <small>*</small></b>
 	{% else %}
 		<!-- | safe avoids HTML escaping here -->
 		{{ field.label | safe }}
