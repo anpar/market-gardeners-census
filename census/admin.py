@@ -151,6 +151,41 @@ def campaign(modeladmin, request, queryset):
                        "campaign",
                        context)
 
+@admin.action(description="Lancer le rappel")
+def reminder(modeladmin, request, queryset):
+    for farm in queryset:
+        # Only send to farm with no known end_year and not yet edited by user
+        if farm.end_year is None and not farm.edited_by_user :
+            # Delete existing link pointing to the same farm (if any)
+            ExpiringUniqueEditLink.objects.filter(farm=farm).delete()
+
+            # Create a new expiring unique edit link, expiring in three weeks
+            link = ExpiringUniqueEditLink.create(farm=farm, days=21)
+            link.save()
+
+            home_url = request.build_absolute_uri(reverse("census:index"))
+            unique_edit_url = request.build_absolute_uri(reverse("census:update", args=(link.token,)))
+
+            farm_count_mun = Farm.objects.filter(public=True, end_year=None, edited_by_user=True,
+                                                 municipality_id=farm.municipality.id).count()
+
+            farm_count_province = Farm.objects.filter(public=True, end_year=None, edited_by_user=True,
+                                                      municipality__province=farm.municipality.province).count()
+
+            context = {
+                'farm': farm,
+                'home_url': home_url,
+                'unique_edit_url': unique_edit_url,
+                'farm_count_mun' : farm_count_mun,
+                'farm_count_province' : farm_count_province,
+            }
+
+            # FIXME: a try-catch here + message after operation is done ?
+            send_email(farm.email_list(),
+                       "RAPPEL : recensement 2026 du maraîchage diversifié",
+                       "reminder",
+                       context)
+
 # TODO: @admin.action create unique expiring link
 
 class FarmAdmin(ImportExportModelAdmin):
@@ -162,7 +197,7 @@ class FarmAdmin(ImportExportModelAdmin):
     list_filter = ['flagged', 'edited_by_user', 'cover_crop', 'production', 'end_year', 'consent']
     ordering = ['-last_update']
     search_fields = ['name', 'email', "municipality__name"]
-    actions = [make_public, hide, mark_staff, mark_user, campaign]
+    actions = [make_public, hide, mark_staff, mark_user, campaign, reminder]
     list_per_page = 500
 
     formfield_overrides = {

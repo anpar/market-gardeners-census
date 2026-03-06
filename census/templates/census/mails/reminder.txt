@@ -1,0 +1,34 @@
+{% extends "census/mails/base_mail.html" %}
+
+{% block content %}
+Cher·ère maraîcher·ère,
+
+Promis, ceci est le dernier e-mail de rappel pour cette campagne 2026 de recensement du
+maraîchage diversifié en Wallonie et à Bruxelles (diversifié = produisant plus de <b>12</b>
+catégories de légumes).
+
+En moins de deux semaines, 135 de vos collègues ont validé et complété leurs données
+sur la plateforme, {% if farm_count_mun > 0 %} dont {{ farm_count_num }} dans votre commune et {{ farm_count_province }} dans votre province. {% else %} dont {{ farm_count_province }} dans votre province. {% endif %}
+Cela représente déjà un total de 235 équivalents temps plein rémunérés sur presque 220 hectares !
+
+Pour rappel, ce recensement s'inscrit dans le cadre de ma thèse à l'UCLouvain dédiée au <b>maraîchage diversifié</b>.
+Ces objectifs sont repris dans la FAQ de la plateforme : {{ home_url }}#faq
+
+Dans ce contexte, j'ai identifié votre ferme : {{ farm.name }}, dans la commune de {{ farm.municipality.name }}.
+
+Accepteriez-vous de valider et compléter les données liées à votre ferme sur
+la plateforme ? Cela ne vous prendra que 2 minutes et contribuerait grandement à la qualité
+du recensement. C'est aussi l'occasion de donner votre avis sur ce que devraient être les priorités de
+la recherche sur le maraîchage diversifié.
+
+Cela se passe par ici : {{ unique_edit_url }}
+
+(Note : si vous n'êtes plus en activité, vous pouvez l'indiquer en cliquant sur le lien ci-dessus et en indiquant
+l'année de fin d'activité de votre projet. Vous ne serez ainsi plus listé·e sur la plateforme.)
+
+Merci d'avance pour votre contribution au recensement !
+
+Je vous souhaite une bonne saison 2026 !
+
+P.S. : n'hésitez pas à me contacter pour toute question, suggestion ou remarque.
+{% endblock content %}

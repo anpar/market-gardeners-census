@@ -1,0 +1,64 @@
+{% extends "census/mails/base_mail.html" %}
+
+{% block content %}
+	<p>Cher·ère maraîcher·ère,</p>
+
+	<p>
+		Promis, ceci est le dernier e-mail de rappel pour cette campagne 2026 de recensement du
+		<b>maraîchage diversifié</b> en Wallonie et à Bruxelles (diversifié = produisant plus de <b>12</b>
+		catégories de légumes).
+	</p>
+
+	<p>
+		En moins de deux semaines, <b>135</b> de vos collègues ont validé et complété leurs données
+		sur la plateforme,
+		{% if farm_count_mun > 0 %}
+			dont <b>{{ farm_count_mun }}</b> dans votre commune et <b>{{ farm_count_province }}</b> dans votre province.
+		{% else %}
+			dont <b>{{ farm_count_province }}</b> dans votre province.
+		{% endif %}
+		Cela représente déjà un total de 235 équivalents temps plein rémunérés sur presque 220 hectares !
+	</p>
+
+	<p>
+		Pour rappel, ce recensement s'inscrit dans le cadre de ma thèse à l'UCLouvain dédiée au <b>maraîchage diversifié</b>.
+		Ces objectifs sont repris dans <a href="{{ home_url }}#faq">la FAQ</a> de la plateforme.
+	</p>
+
+	<p>
+		Dans ce contexte, j'ai identifié votre ferme : <b>{{ farm.name }}</b>, dans la commune de <i>{{ farm.municipality.name }}</i>.
+	</p>
+
+	<p>
+		Accepteriez-vous de <b>valider</b> et <b>compléter</b> les données liées à votre ferme sur
+		la plateforme ? <b>Cela ne vous prendra que 2 minutes</b> et contribuerait grandement à la qualité
+		du recensement. C'est aussi l'occasion de donner votre avis sur ce que devraient être <b>les priorités de
+		la recherche</b> sur le maraîchage diversifié.
+	</p>
+
+	<div style="text-align: center;">
+		<br>
+		<a href="{{ unique_edit_url }}"
+		   style="background-color: #0d6efd; font-size: 16px; text-align: center; border-radius: 5px; padding: 10px; border-color: #0d6efd; border-style: solid; color: white; text-decoration: none;">
+			Valider et compléter mes données
+		</a>
+	</div>
+
+	<p>
+		<br>
+		(<u>Note</u> : si vous n'êtes plus en activité, vous pouvez l'indiquer en cliquant sur le lien ci-dessus et en indiquant
+		l'année de fin d'activité de votre projet. Vous ne serez ainsi plus listé·e sur la plateforme.)
+	</p>
+
+	<p>
+		<b>Merci</b> d'avance pour votre contribution au recensement !
+	</p>
+
+	<p>
+		Je vous souhaite une bonne saison 2026 !
+	</p>
+
+	<p>
+		P.S. : n'hésitez pas à me contacter pour toute question, suggestion ou remarque.
+	</p>
+{% endblock content %}
