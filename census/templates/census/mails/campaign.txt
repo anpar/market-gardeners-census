@@ -12,7 +12,8 @@ Dans ce contexte, j'ai identifié votre ferme : {{ farm.name }}, dans la commune
 Accepteriez-vous de valider et compléter les données liées à votre ferme sur
 la plateforme ? Cela ne vous prendra que 2 minutes et contribuerait grandement à la qualité
 du recensement. C'est aussi l'occasion de donner votre avis sur ce que devraient être les priorités de la recherche
-scientifique sur le maraîchage diversifié.
+scientifique sur le maraîchage diversifié. Plus de 160 de vos collègues ont déjà pris le temps de le faire ! Cela
+représente 265 équivalents temps plein rémunérés sur presque 235 hectares.
 
 Cela se passe par ici : {{ unique_edit_url }}
 
