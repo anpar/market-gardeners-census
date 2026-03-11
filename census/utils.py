@@ -23,7 +23,7 @@ def send_email(to, subject, template, context):
             body=text_content,
             from_email="Antoine Paris <recensement@maraichage-wallonie.be>",
             to=to,
-            cc=cc,
+            bcc=cc,
         )
 
         email.attach_alternative(html_content, "text/html")
