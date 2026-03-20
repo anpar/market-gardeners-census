@@ -157,7 +157,8 @@ def reminder(modeladmin, request, queryset):
         # Only send to farm with no known end_year and not yet edited by user
         if farm.end_year is None and not farm.edited_by_user :
             # Delete existing link pointing to the same farm (if any)
-            ExpiringUniqueEditLink.objects.filter(farm=farm).delete()
+            # EDIT: don't, because people might still use the old link and get an error (it happened)
+            # ExpiringUniqueEditLink.objects.filter(farm=farm).delete()
 
             # Create a new expiring unique edit link, expiring in three weeks
             link = ExpiringUniqueEditLink.create(farm=farm, days=21)
