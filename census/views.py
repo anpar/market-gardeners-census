@@ -169,7 +169,11 @@ class FarmUpdateView(generic.UpdateView):
         self.success_url = reverse("census:update", args=(token,))
 
         # Get the ExpiringUniqueEditLink and the corresponding farm
-        link = get_object_or_404(ExpiringUniqueEditLink, token=token)
+        try:
+            link = ExpiringUniqueEditLink.objects.get(token=token)
+        except ExpiringUniqueEditLink.DoesNotExist:
+            return None
+
         farm = get_object_or_404(Farm, pk=link.farm_id)
 
         # Needed in the context if the link has expired to redirect to farm/<farm_id>

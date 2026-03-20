@@ -11,15 +11,28 @@
 
 	<h1>Modifier les informations d'une ferme</h1>
 
-	<p class="alert alert-danger" role="alert">
-		Par « ferme maraîchère diversifiée », nous entendons une ferme qui <b>produit</b> et vend <u>à titre professionnel</u>
-		un minimum de <b>12 catégories de légumes</b>. Si ce n'est pas votre cas mais que vous êtes repris sur cette
-		plateforme, merci de <a href="/#contact">nous contacter</a>.
-	</p>
-
-	{% if not display_form %}
+	{% if display_form %}
 		<p class="alert alert-danger" role="alert">
-			Le lien d'édition a expiré. Vous pouvez en demander un nouveau <a href="{% url 'census:view' farm_id %}">ici</a>.
+			Par « ferme maraîchère diversifiée », nous entendons une ferme qui <b>produit</b> et vend <u>à titre professionnel</u>
+			un minimum de <b>12 catégories de légumes</b>. Si ce n'est pas votre cas mais que vous êtes repris sur cette
+			plateforme, merci de <a href="/#contact">nous contacter</a>.
+		</p>
+	{% else %}
+		<p class="alert alert-danger" role="alert">
+			{% if farm is not None %}
+				Le lien d'édition a <b>expiré</b>. Vous pouvez en demander un nouveau en indiquant votre adresse e-mail
+				<a href="{% url 'census:view' farm_id %}">ici</a>.
+			{% else %}
+				Le lien d'édition est <b>erroné</b> ou a <b>expiré</b>.<br><br>
+
+				Pour en demander un nouveau, trouver votre ferme dans la
+				<a href="{% url 'census:listing' %}" >la liste</a>, cliquez sur le
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+					<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+				</svg>
+				à côté du nom de votre ferme, et indiquez votre adresse e-mail pour recevoir un nouveau lien d'édition unique.
+				Celui-ci restera valable pendant 24 heures.
+			{% endif %}
 		</p>
 	{% endif %}
 
