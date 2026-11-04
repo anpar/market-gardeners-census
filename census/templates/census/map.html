@@ -60,9 +60,11 @@
 	<!-- NOTE: removed referrerpolicy="no-referrer" to comply with the "Tile Usage Policty of osm.org, see
 	https://community.openstreetmap.org/t/access-blocked-on-osm-org/141419/25 -->
 	<!-- UPDATE 24/04/2026: still here. Tried following https://wiki.openstreetmap.org/wiki/Blocked_tiles -->
+	<!-- UPDATE 04/11/2026: was still there, followed https://leafletjs.com/reference.html#tilelayer-referrerpolicy
+	and added referrerPolicy: 'strict-origin-when-cross-origin' in the call to tileLayer below. Seems to work. -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"
 	        integrity="sha512-BwHfrr4c9kmRkLw6iXFdzcdWV/PGkVgiIyIWLLlTSXzWQzxuSg4DiQUCpauz/EWjgk5TYQqX/kvn9pG1NpYfqg=="
-	        referrerpolicy="no-referrer-when-downgrade"
+	        referrerpolicy="strict-origin-when-cross-origin"
 	        crossorigin=""></script>
 	<script type="text/javascript" src="{% static 'census/js/leaflet.legend.js' %}"></script>
 
@@ -71,7 +73,8 @@
 
 		L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	    maxZoom: 19,
-	    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+			referrerPolicy: 'strict-origin-when-cross-origin'
 		}).addTo(map);
 
 		let coord, circle;
