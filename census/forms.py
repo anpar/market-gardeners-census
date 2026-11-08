@@ -16,12 +16,18 @@ class EmailForm(forms.Form):
             visible.field.widget.attrs['class'] = 'form-control'
             visible.field.widget.attrs['placeholder'] = 'Adresse e-mail de la ferme'
 
+    # Return the address of email_list matching the submitted one (ignoring case and
+    # surrounding spaces), or None if there is no match
+    def matching_email(self, email_list):
+        submitted = self.cleaned_data['email'].strip().lower()
+        for email in email_list:
+            if email and email.strip().lower() == submitted:
+                return email
+        return None
+
     # Check if the given email address matches one in a given list
     def check_match(self, email_list):
-        if self.cleaned_data['email'] in email_list:
-            return True
-        else:
-            return False
+        return self.matching_email(email_list) is not None
 
 class FarmForm(ModelForm):
     class Meta:

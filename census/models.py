@@ -97,7 +97,7 @@ class Farm(models.Model):
                                      verbose_name="Commune du lieu de <u>production</u>",
                                      help_text="Parmi les 261 communes wallonnes, les 19 communes bruxelloises et les 6 communes à facilités.")
 
-    @admin.display(description="Commune", ordering="name")
+    @admin.display(description="Commune", ordering="municipality__name")
     def municipality_display(self):
         return self.municipality.name
 
@@ -113,11 +113,11 @@ class Farm(models.Model):
                                 verbose_name="Coordonnées GPS",
                                 help_text="latitude, longitude du lieu de production (tel qu'extrait via un clic-droit sur Google Maps)")
 
-    # TODO: make a custom validator to accept URL starting with "www" ?
+    # Addresses without scheme (e.g. "www.ferme.be") are accepted and saved with https://
     website = models.URLField(blank=True,
                               null=True,
                               verbose_name="Site web",
-                              help_text="Doit commencer par http:// ou https://.")
+                              help_text="Par exemple : www.ma-ferme.be.")
 
     fb_page = models.URLField(blank=True,
                               null=True,

@@ -62,12 +62,14 @@ class GetEditLinkFormView(generic.FormView):
     template_name = "census/view.html"
 
     def form_valid(self, form):
-        farm = Farm.objects.get(pk=self.kwargs['pk'])
+        farm = get_object_or_404(Farm, pk=self.kwargs['pk'])
         email_list = farm.email_list()
 
         self.success_url = reverse("census:view", args=(self.kwargs['pk'],))
 
-        if form.check_match(email_list):
+        matching_email = form.matching_email(email_list)
+
+        if matching_email is not None:
             # Delete existing link pointing to the same farm (if any)
             # Update: don't, to avoid 404 if clicking on a old link that has not expired
             #ExpiringUniqueEditLink.objects.filter(farm=farm).delete()
@@ -84,7 +86,7 @@ class GetEditLinkFormView(generic.FormView):
             }
 
             try:
-                send_email([form.cleaned_data['email']],
+                send_email([matching_email],
                            "Modifier votre ferme : votre lien unique",
                            "edit_link",
                            context)
@@ -113,6 +115,8 @@ class FarmView(View):
         return view(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
+        # 404 for unknown farms, also when the submitted e-mail is invalid
+        get_object_or_404(Farm, pk=kwargs['pk'])
         view = GetEditLinkFormView.as_view()
         return view(request, *args, **kwargs)
 
@@ -184,6 +188,15 @@ class FarmUpdateView(generic.UpdateView):
             self.display_form = True
 
         return farm
+
+    def post(self, request, *args, **kwargs):
+        # An unknown or expired link must not modify (or create!) a farm: just show
+        # the same "erroneous/expired link" page as a GET would.
+        self.object = self.get_object()
+        if self.object is None or not self.display_form:
+            return self.render_to_response(self.get_context_data())
+
+        return super(FarmUpdateView, self).post(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(FarmUpdateView, self).get_context_data(**kwargs)
