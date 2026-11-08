@@ -10,10 +10,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        # migrations.RemoveField(
-        #     model_name="municipality",
-        #     name="alt_email",
-        # ),
+        # (Commented-out Municipality e-mail operation removed: see migration 0018.)
         migrations.RemoveField(
             model_name="municipality",
             name="alt_email2",
@@ -22,8 +19,5 @@ class Migration(migrations.Migration):
             model_name="municipality",
             name="alt_email3",
         ),
-        # migrations.RemoveField(
-        #     model_name="municipality",
-        #     name="email",
-        # ),
+        # (Commented-out Municipality e-mail operation removed: see migration 0018.)
     ]

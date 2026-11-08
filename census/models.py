@@ -71,8 +71,8 @@ class Municipality(models.Model):
 
 
     def email_list(self):
-        list_emails = [self.email, self.alt_email]
-        list_emails = [email for email in list_emails if email is not None]
+        list_emails = [self.email, self.alt_email, self.alt_email2, self.alt_email3]
+        list_emails = [email for email in list_emails if email]
 
         return list_emails
 
@@ -241,6 +241,7 @@ class Farm(models.Model):
         return self.end_year
 
     research_priorities = models.TextField(blank=True,
+                                           null=True,
                                            verbose_name="Selon vous, quelles devraient être les priorités "
                                                         "de la recherche sur le maraîchage ?",
                                            help_text="À quels problèmes êtes vous confronté·es ? Qu'aimeriez-vous "
@@ -258,8 +259,8 @@ class Farm(models.Model):
                                      default=None,
                                      verbose_name="Intégrez-vous des couverts végétaux dans votre rotation ?")
 
-    # FIXME: ou un MultipleChoiceField avec plusieurs choix ? https://docs.djangoproject.com/en/6.0/ref/forms/fields/#multiplechoicefield
     why_no_cover_crop = models.TextField(blank=True,
+                                         null=True,
                                          verbose_name="Si vous n'intégrez <b>pas</b> de couverts végétaux dans votre rotation, "
                                                       "pour quelle(s) raison(s) ?",
                                          help_text="Par exemple : perte de rentabilité par rapport à une culture de légume, "
